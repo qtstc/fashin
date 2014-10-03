@@ -1,0 +1,39 @@
+PODS:
+  - AVHexColor (1.2.0)
+  - Bolts (1.1.2)
+  - Facebook-iOS-SDK (3.19.0):
+    - Bolts (~> 1.0)
+  - MHPrettyDate (1.1.1)
+  - Parse (1.4.1):
+    - Bolts (~> 1.1.2)
+  - ParseFacebookUtils (1.4.1):
+    - Facebook-iOS-SDK (~> 3.17.0)
+    - Parse (~> 1.4.1)
+  - SDWebImage (3.7.1):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.7.1)
+  - SVProgressHUD (1.0)
+  - TTTAttributedLabel (1.10.1)
+
+DEPENDENCIES:
+  - AVHexColor
+  - Facebook-iOS-SDK
+  - MHPrettyDate
+  - Parse
+  - ParseFacebookUtils
+  - SDWebImage
+  - SVProgressHUD
+  - TTTAttributedLabel
+
+SPEC CHECKSUMS:
+  AVHexColor: b47099552819a98dc58d7931f0f43eb6e2308342
+  Bolts: 2635e8698a630774689441047f3465d78c48d485
+  Facebook-iOS-SDK: cb7d74759d0b1ba546e6e6f1dde407b0d4e448d6
+  MHPrettyDate: d9f42f2ec3dfece6352f18ac77aa33312174e09e
+  Parse: db1a09c832b7509edcc88a65dc07229f5e578c73
+  ParseFacebookUtils: 625da00d0f36a34e25ebae7f543385a0f19ccf1e
+  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+  TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
+
+COCOAPODS: 0.33.1
