@@ -10,7 +10,9 @@
 
 #import <Parse/Parse.h>
 
-@interface ViewController ()
+#import "DemoMessagesViewController.h"
+
+@interface ViewController ()<JSQDemoViewControllerDelegate>
 
 @end
 
@@ -43,4 +45,18 @@
 	}
 }
 
+- (IBAction)testMessagingUITapped:(id)sender
+{
+	DemoMessagesViewController *vc = [DemoMessagesViewController messagesViewController];
+	vc.delegateModal = self;
+	UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+	[self presentViewController:nc animated:YES completion:nil];
+}
+
+#pragma mark - Demo delegate
+
+- (void)didDismissJSQDemoViewController:(DemoMessagesViewController *)vc
+{
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

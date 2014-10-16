@@ -23,6 +23,10 @@
 		049C07F219EF9DC2004AC7E0 /* star-template@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049C07ED19EF9DC2004AC7E0 /* star-template@2x.png */; };
 		049C07F919EFA96D004AC7E0 /* mockFaces-female1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 049C07F819EFA96D004AC7E0 /* mockFaces-female1.jpg */; };
 		049C07FB19EFAE09004AC7E0 /* zigzag.png in Resources */ = {isa = PBXBuildFile; fileRef = 049C07FA19EFAE09004AC7E0 /* zigzag.png */; };
+		049C07FE19EFC614004AC7E0 /* DemoMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C07FD19EFC614004AC7E0 /* DemoMessagesViewController.m */; };
+		049C080219EFC6A0004AC7E0 /* DemoModelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C080119EFC6A0004AC7E0 /* DemoModelData.m */; };
+		049C080519EFC6C7004AC7E0 /* NSUserDefaults+DemoSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C080419EFC6C7004AC7E0 /* NSUserDefaults+DemoSettings.m */; };
+		049C080719EFC990004AC7E0 /* rajat_thumbpic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 049C080619EFC990004AC7E0 /* rajat_thumbpic.jpg */; };
 		04ACFE8219DE64B200B7839F /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ACFE8119DE64B200B7839F /* EmailLoginViewController.m */; };
 		F601ACE28F1C4015B9D52D11 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A91658C4EC3410EBE2554B6 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -63,6 +67,13 @@
 		049C07ED19EF9DC2004AC7E0 /* star-template@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-template@2x.png"; sourceTree = "<group>"; };
 		049C07F819EFA96D004AC7E0 /* mockFaces-female1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "mockFaces-female1.jpg"; sourceTree = "<group>"; };
 		049C07FA19EFAE09004AC7E0 /* zigzag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zigzag.png; sourceTree = "<group>"; };
+		049C07FC19EFC614004AC7E0 /* DemoMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoMessagesViewController.h; sourceTree = "<group>"; };
+		049C07FD19EFC614004AC7E0 /* DemoMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoMessagesViewController.m; sourceTree = "<group>"; };
+		049C080019EFC6A0004AC7E0 /* DemoModelData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoModelData.h; sourceTree = "<group>"; };
+		049C080119EFC6A0004AC7E0 /* DemoModelData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoModelData.m; sourceTree = "<group>"; };
+		049C080319EFC6C7004AC7E0 /* NSUserDefaults+DemoSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+DemoSettings.h"; sourceTree = "<group>"; };
+		049C080419EFC6C7004AC7E0 /* NSUserDefaults+DemoSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+DemoSettings.m"; sourceTree = "<group>"; };
+		049C080619EFC990004AC7E0 /* rajat_thumbpic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rajat_thumbpic.jpg; sourceTree = "<group>"; };
 		04ACFE8019DE64B200B7839F /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
 		04ACFE8119DE64B200B7839F /* EmailLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailLoginViewController.m; sourceTree = "<group>"; };
 		1A91658C4EC3410EBE2554B6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +134,7 @@
 				04ACFE8119DE64B200B7839F /* EmailLoginViewController.m */,
 				049C07E319EF9B9A004AC7E0 /* RatingViewController.h */,
 				049C07E419EF9B9A004AC7E0 /* RatingViewController.m */,
+				049C07FF19EFC68F004AC7E0 /* Messaging */,
 				045F49E419DDA9D1000AFC93 /* Main.storyboard */,
 				045F49E719DDA9D1000AFC93 /* Images.xcassets */,
 				045F49E919DDA9D1000AFC93 /* LaunchScreen.xib */,
@@ -183,8 +195,22 @@
 			children = (
 				049C07F819EFA96D004AC7E0 /* mockFaces-female1.jpg */,
 				049C07FA19EFAE09004AC7E0 /* zigzag.png */,
+				049C080619EFC990004AC7E0 /* rajat_thumbpic.jpg */,
 			);
 			path = Graphics;
+			sourceTree = "<group>";
+		};
+		049C07FF19EFC68F004AC7E0 /* Messaging */ = {
+			isa = PBXGroup;
+			children = (
+				049C07FC19EFC614004AC7E0 /* DemoMessagesViewController.h */,
+				049C07FD19EFC614004AC7E0 /* DemoMessagesViewController.m */,
+				049C080019EFC6A0004AC7E0 /* DemoModelData.h */,
+				049C080119EFC6A0004AC7E0 /* DemoModelData.m */,
+				049C080319EFC6C7004AC7E0 /* NSUserDefaults+DemoSettings.h */,
+				049C080419EFC6C7004AC7E0 /* NSUserDefaults+DemoSettings.m */,
+			);
+			name = Messaging;
 			sourceTree = "<group>";
 		};
 		D46C7CCBF0554EF7A3FC2D99 /* Frameworks */ = {
@@ -280,6 +306,7 @@
 			files = (
 				049C07F919EFA96D004AC7E0 /* mockFaces-female1.jpg in Resources */,
 				045F49E619DDA9D1000AFC93 /* Main.storyboard in Resources */,
+				049C080719EFC990004AC7E0 /* rajat_thumbpic.jpg in Resources */,
 				049C07FB19EFAE09004AC7E0 /* zigzag.png in Resources */,
 				049C07EF19EF9DC2004AC7E0 /* star-highlighted-template.png in Resources */,
 				049C07F019EF9DC2004AC7E0 /* star-highlighted-template@2x.png in Resources */,
@@ -338,8 +365,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				045F4A0219DDAA65000AFC93 /* LoginViewController.m in Sources */,
+				049C080219EFC6A0004AC7E0 /* DemoModelData.m in Sources */,
 				045F49E319DDA9D1000AFC93 /* ViewController.m in Sources */,
 				045F49E019DDA9D1000AFC93 /* AppDelegate.m in Sources */,
+				049C07FE19EFC614004AC7E0 /* DemoMessagesViewController.m in Sources */,
+				049C080519EFC6C7004AC7E0 /* NSUserDefaults+DemoSettings.m in Sources */,
 				049C07E519EF9B9A004AC7E0 /* RatingViewController.m in Sources */,
 				04ACFE8219DE64B200B7839F /* EmailLoginViewController.m in Sources */,
 				045F49DD19DDA9D1000AFC93 /* main.m in Sources */,
@@ -468,6 +498,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Fashin-SP14/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -480,6 +511,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Fashin-SP14/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
