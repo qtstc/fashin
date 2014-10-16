@@ -10,6 +10,8 @@
 
 #import "EDStarRating.h"
 #import <AVHexColor.h>
+#import <Parse/Parse.h>
+#import <SVProgressHUD.h>
 
 @interface RatingViewController ()<EDStarRatingProtocol, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *minutesLabel;
@@ -19,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *feedbackTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *bottomBGImageView;
 @property (strong, nonatomic) EDStarRating *ratingView;
+@property (nonatomic) int sessionCost;
 
 @end
 
@@ -36,9 +39,9 @@
 - (void)populateWithMockData
 {
 	int minutes = arc4random() % 5 + 2;
-	int amount = minutes * 4;
+	self.sessionCost = minutes * 4;
 	self.minutesLabel.text = [NSString stringWithFormat:@"%i minutes session",minutes];
-	self.amountLabel.text = [NSString stringWithFormat:@"$%i",amount];
+	self.amountLabel.text = [NSString stringWithFormat:@"$%i",self.sessionCost];
 	self.personNameLabel.text = @"Courtney";
 	
 	self.personPhotoImageView.image = [UIImage imageNamed:@"mockFaces-female1.jpg"];
@@ -101,7 +104,36 @@
 		[alert show];
 	}
 	else{
-		[self dismissViewControllerAnimated:YES completion:nil];
+		[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+		
+		static NSString *placeholder = @"Tell us your feedback...";
+		
+		PFObject *feedbackObj = [PFObject objectWithClassName:@"Requests"];
+		feedbackObj[@"customer"] = @"Rajat";
+		feedbackObj[@"stylist"] = @"Courtney";
+		feedbackObj[@"status"] = @"test_finished";
+		int ratingOn100Scale = self.ratingView.rating*20.0;
+		feedbackObj[@"stylist_rating"] = [NSNumber numberWithInt:ratingOn100Scale];
+		
+		if(self.feedbackTextView.text.length && ![self.feedbackTextView.text isEqualToString:placeholder])
+		{
+			feedbackObj[@"customer_feedback"] = self.feedbackTextView.text;
+		}
+		feedbackObj[@"charges"] = [NSNumber numberWithInteger:self.sessionCost];
+		
+		[feedbackObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+			[SVProgressHUD dismiss];
+			
+			if(succeeded)
+			{
+				[self dismissViewControllerAnimated:YES completion:nil];
+			}
+			else
+			{
+				[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Something went wrong. Coulnd't save feedback. Please tap Done again" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+				NSLog(@"feedback save error: %@", error);
+			}
+		}];
 	}
 }
 
