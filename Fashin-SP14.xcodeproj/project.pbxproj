@@ -21,6 +21,8 @@
 		049C07F019EF9DC2004AC7E0 /* star-highlighted-template@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049C07EB19EF9DC2004AC7E0 /* star-highlighted-template@2x.png */; };
 		049C07F119EF9DC2004AC7E0 /* star-template.png in Resources */ = {isa = PBXBuildFile; fileRef = 049C07EC19EF9DC2004AC7E0 /* star-template.png */; };
 		049C07F219EF9DC2004AC7E0 /* star-template@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049C07ED19EF9DC2004AC7E0 /* star-template@2x.png */; };
+		049C07F919EFA96D004AC7E0 /* mockFaces-female1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 049C07F819EFA96D004AC7E0 /* mockFaces-female1.jpg */; };
+		049C07FB19EFAE09004AC7E0 /* zigzag.png in Resources */ = {isa = PBXBuildFile; fileRef = 049C07FA19EFAE09004AC7E0 /* zigzag.png */; };
 		04ACFE8219DE64B200B7839F /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ACFE8119DE64B200B7839F /* EmailLoginViewController.m */; };
 		F601ACE28F1C4015B9D52D11 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A91658C4EC3410EBE2554B6 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -59,6 +61,8 @@
 		049C07EB19EF9DC2004AC7E0 /* star-highlighted-template@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-highlighted-template@2x.png"; sourceTree = "<group>"; };
 		049C07EC19EF9DC2004AC7E0 /* star-template.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-template.png"; sourceTree = "<group>"; };
 		049C07ED19EF9DC2004AC7E0 /* star-template@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-template@2x.png"; sourceTree = "<group>"; };
+		049C07F819EFA96D004AC7E0 /* mockFaces-female1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "mockFaces-female1.jpg"; sourceTree = "<group>"; };
+		049C07FA19EFAE09004AC7E0 /* zigzag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zigzag.png; sourceTree = "<group>"; };
 		04ACFE8019DE64B200B7839F /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
 		04ACFE8119DE64B200B7839F /* EmailLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailLoginViewController.m; sourceTree = "<group>"; };
 		1A91658C4EC3410EBE2554B6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +91,7 @@
 		045F49CE19DDA9D1000AFC93 = {
 			isa = PBXGroup;
 			children = (
+				049C07F719EFA96D004AC7E0 /* Graphics */,
 				049C07E619EF9DC2004AC7E0 /* ExternalFrameworks */,
 				045F49D919DDA9D1000AFC93 /* Fashin-SP14 */,
 				045F49F319DDA9D1000AFC93 /* Fashin-SP14Tests */,
@@ -171,6 +176,15 @@
 				049C07ED19EF9DC2004AC7E0 /* star-template@2x.png */,
 			);
 			path = EDStarRating;
+			sourceTree = "<group>";
+		};
+		049C07F719EFA96D004AC7E0 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				049C07F819EFA96D004AC7E0 /* mockFaces-female1.jpg */,
+				049C07FA19EFAE09004AC7E0 /* zigzag.png */,
+			);
+			path = Graphics;
 			sourceTree = "<group>";
 		};
 		D46C7CCBF0554EF7A3FC2D99 /* Frameworks */ = {
@@ -264,7 +278,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				049C07F919EFA96D004AC7E0 /* mockFaces-female1.jpg in Resources */,
 				045F49E619DDA9D1000AFC93 /* Main.storyboard in Resources */,
+				049C07FB19EFAE09004AC7E0 /* zigzag.png in Resources */,
 				049C07EF19EF9DC2004AC7E0 /* star-highlighted-template.png in Resources */,
 				049C07F019EF9DC2004AC7E0 /* star-highlighted-template@2x.png in Resources */,
 				049C07F119EF9DC2004AC7E0 /* star-template.png in Resources */,
