@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *personPhotoImageView;
 @property (weak, nonatomic) IBOutlet UITextView *feedbackTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *bottomBGImageView;
+@property (strong, nonatomic) EDStarRating *ratingView;
 
 @end
 
@@ -53,21 +54,21 @@
 	self.bottomBGImageView.backgroundColor = [AVHexColor colorWithHexString:@"cbcbcb"];
 	
 	CGSize ratingViewSize = CGSizeMake(250, 60);
-	EDStarRating *ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - ratingViewSize.width/2, 500, ratingViewSize.width, ratingViewSize.height)];
-//	ratingView.backgroundColor = [UIColor lightGrayColor];
-	ratingView.starImage = [[UIImage imageNamed:@"star-template"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-	ratingView.starHighlightedImage = [[UIImage imageNamed:@"star-highlighted-template"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-	ratingView.maxRating = 5.0;
-	ratingView.delegate = self;
-	ratingView.horizontalMargin = 10.0;
-	ratingView.editable = YES;
-	ratingView.displayMode = EDStarRatingDisplayFull;
-	[ratingView  setNeedsDisplay];
-	ratingView.tintColor = [AVHexColor colorWithHexString:@"ffc600"];
+	self.ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - ratingViewSize.width/2, 500, ratingViewSize.width, ratingViewSize.height)];
+//	self.ratingView.backgroundColor = [UIColor lightGrayColor];
+	self.ratingView.starImage = [[UIImage imageNamed:@"star-template"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	self.ratingView.starHighlightedImage = [[UIImage imageNamed:@"star-highlighted-template"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+	self.ratingView.maxRating = 5.0;
+	self.ratingView.delegate = self;
+	self.ratingView.horizontalMargin = 10.0;
+	self.ratingView.editable = YES;
+	self.ratingView.displayMode = EDStarRatingDisplayFull;
+	[self.ratingView  setNeedsDisplay];
+	self.ratingView.tintColor = [AVHexColor colorWithHexString:@"ffc600"];
 	
-	ratingView.rating= 0;
-	[self starsSelectionChanged:ratingView rating:ratingView.rating];
-	[self.view addSubview:ratingView];
+	self.ratingView.rating= 0;
+	[self starsSelectionChanged:self.ratingView rating:self.ratingView.rating];
+	[self.view addSubview:self.ratingView];
 	
 	self.feedbackTextView.backgroundColor = [AVHexColor colorWithHexString:@"cecece"];
 	self.feedbackTextView.layer.cornerRadius = 4.0;
@@ -94,7 +95,14 @@
 
 - (IBAction)doneButtonTapped:(id)sender
 {
-	[self dismissViewControllerAnimated:YES completion:nil];
+	if(self.ratingView.rating < 1.0)
+	{
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Rating required" message:@"Please rate your last session" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+		[alert show];
+	}
+	else{
+		[self dismissViewControllerAnimated:YES completion:nil];
+	}
 }
 
 - (void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating
