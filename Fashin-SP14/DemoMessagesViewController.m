@@ -36,8 +36,8 @@
 {
     [super viewDidLoad];
     
-    self.title = @"JSQMessages";
-    
+	self.title = @"Session with Courtney";
+	
     /**
      *  You MUST set your senderId and display name
      */
@@ -298,7 +298,6 @@
         return;
     }
 	
-	return;
     
     switch (buttonIndex) {
         case 0:
