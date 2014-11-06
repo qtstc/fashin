@@ -126,6 +126,7 @@
 			
 			if(succeeded)
 			{
+				[PFAnalytics trackEvent:@"Rating Provided"];
 				[self dismissViewControllerAnimated:YES completion:nil];
 			}
 			else

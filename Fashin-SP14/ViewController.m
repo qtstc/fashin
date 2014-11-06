@@ -47,6 +47,8 @@
 
 - (IBAction)testMessagingUITapped:(id)sender
 {
+	[PFAnalytics trackEvent:@"Session Opened"];
+	
 	DemoMessagesViewController *vc = [DemoMessagesViewController messagesViewController];
 	vc.delegateModal = self;
 	UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
