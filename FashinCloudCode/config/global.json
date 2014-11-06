@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "Fashin-sp14": {
+            "applicationId": "ZNvDp6y8JgM4zS2XauBXaxe0weM10H9z5bU2Pana", 
+            "masterKey": "UF93OF8owouY8P5bQh2XdhRgY02d9X8EwWPiSQdK"
+        }, 
+        "_default": {
+            "link": "Fashin-sp14"
+        }
+    }
+}
