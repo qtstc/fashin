@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 #import <Parse/Parse.h>
+#import <SVProgressHUD.h>
 
 #import "DemoMessagesViewController.h"
 
@@ -61,4 +62,31 @@
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)createSessionTapped:(id)sender {
+	
+	[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+
+	PFObject *feedbackObj = [PFObject objectWithClassName:@"Requests"];
+	feedbackObj[@"customer"] = @"Rajat";
+	feedbackObj[@"stylist"] = @"Courtney";
+	feedbackObj[@"status"] = @"test_finished";
+	
+	[feedbackObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+		[SVProgressHUD dismiss];
+		
+		if(succeeded)
+		{
+			[PFAnalytics trackEvent:@"Rating Provided"];
+			[self dismissViewControllerAnimated:YES completion:nil];
+		}
+		else
+		{
+			[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Something went wrong. Coulnd't save feedback. Please tap Done again" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+			NSLog(@"feedback save error: %@", error);
+		}
+	}];
+	
+}
+
 @end
