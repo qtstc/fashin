@@ -28,6 +28,15 @@
 	[PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 	[PFFacebookUtils initializeFacebook];
 	
+	//register push token
+	UIUserNotificationSettings *settings =
+	[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert |
+	 UIUserNotificationTypeBadge |
+	 UIUserNotificationTypeSound
+									  categories:nil];
+	[[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+	[[UIApplication sharedApplication] registerForRemoteNotifications];
+	
 	return YES;
 }
 
@@ -63,6 +72,25 @@
 		 annotation:(id)annotation {
 	// attempt to extract a token from the url
 	return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+	//NSLog(@"didRegisterForRemoteNotificationsWithDeviceToken %@", deviceToken);
+	// Store the deviceToken in the current Installation and save it to Parse.
+	PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+	[currentInstallation setDeviceTokenFromData:deviceToken];
+	if([PFUser currentUser])
+		[currentInstallation setObject:[PFUser currentUser] forKey:@"userObject"];
+	[currentInstallation saveInBackground];
+}
+
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+#if !(TARGET_IPHONE_SIMULATOR)
+	NSLog(@"Push token reg failed: %@", error);
+#endif
 }
 
 @end

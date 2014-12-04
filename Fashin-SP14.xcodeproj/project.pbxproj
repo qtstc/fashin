@@ -97,6 +97,7 @@
 		049C08C319EFCD1A004AC7E0 /* JSQMessagesTypingIndicatorFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C087E19EFCD1A004AC7E0 /* JSQMessagesTypingIndicatorFooterView.m */; };
 		049C08C419EFCD1A004AC7E0 /* JSQMessagesTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049C087F19EFCD1A004AC7E0 /* JSQMessagesTypingIndicatorFooterView.xib */; };
 		049C08C919EFCDAD004AC7E0 /* JSQSystemSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 049C08C819EFCDAD004AC7E0 /* JSQSystemSoundPlayer.m */; };
+		049C08CB19EFFEE1004AC7E0 /* md-blazer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 049C08CA19EFFEE1004AC7E0 /* md-blazer.jpg */; };
 		04ACFE8219DE64B200B7839F /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ACFE8119DE64B200B7839F /* EmailLoginViewController.m */; };
 		F601ACE28F1C4015B9D52D11 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A91658C4EC3410EBE2554B6 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -256,6 +257,7 @@
 		049C087F19EFCD1A004AC7E0 /* JSQMessagesTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSQMessagesTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		049C08C719EFCDAD004AC7E0 /* JSQSystemSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQSystemSoundPlayer.h; sourceTree = "<group>"; };
 		049C08C819EFCDAD004AC7E0 /* JSQSystemSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQSystemSoundPlayer.m; sourceTree = "<group>"; };
+		049C08CA19EFFEE1004AC7E0 /* md-blazer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "md-blazer.jpg"; sourceTree = "<group>"; };
 		04ACFE8019DE64B200B7839F /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
 		04ACFE8119DE64B200B7839F /* EmailLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailLoginViewController.m; sourceTree = "<group>"; };
 		1A91658C4EC3410EBE2554B6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -381,6 +383,7 @@
 				049C07F819EFA96D004AC7E0 /* mockFaces-female1.jpg */,
 				049C07FA19EFAE09004AC7E0 /* zigzag.png */,
 				049C080619EFC990004AC7E0 /* rajat_thumbpic.jpg */,
+				049C08CA19EFFEE1004AC7E0 /* md-blazer.jpg */,
 			);
 			path = Graphics;
 			sourceTree = "<group>";
@@ -730,6 +733,7 @@
 				049C088119EFCD1A004AC7E0 /* bubble@2x.png in Resources */,
 				049C088819EFCD1A004AC7E0 /* bubble_min_tailless@3x.png in Resources */,
 				049C089519EFCD1A004AC7E0 /* play.png in Resources */,
+				049C08CB19EFFEE1004AC7E0 /* md-blazer.jpg in Resources */,
 				049C089719EFCD1A004AC7E0 /* play@3x.png in Resources */,
 				049C089119EFCD1A004AC7E0 /* bubble_tailless@3x.png in Resources */,
 				049C08B819EFCD1A004AC7E0 /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
@@ -971,6 +975,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e7da1fce-2013-45d8-a5dc-6d613e16b615";
 			};
 			name = Debug;
 		};
@@ -984,6 +989,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e7da1fce-2013-45d8-a5dc-6d613e16b615";
 			};
 			name = Release;
 		};

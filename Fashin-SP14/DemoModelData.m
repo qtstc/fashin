@@ -119,6 +119,21 @@
 														 date:[NSDate date]
 														 text:@"I have an interview coming up in San Francisco. I was told that the dress code is business casual. Should I go with a blazer or just dress shirt and tie?"],
 					 
+					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdCourtney
+											senderDisplayName:kJSQDemoAvatarDisplayNameCourtney
+														 date:[NSDate date]
+														 text:@"I would need a little more info about what you currently have in your wardrobe and what styles you are comfortable with."],
+					 
+					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdCourtney
+											senderDisplayName:kJSQDemoAvatarDisplayNameCourtney
+														 date:[NSDate date]
+														 text:@"It would definitely be possible to create a casual look even with a blazer. In fact I recommend going with a blazer as it provides a sharp and confident look."],
+					 
+					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdRajat
+											senderDisplayName:kJSQDemoAvatarDisplayNameRajat
+														 date:[NSDate date]
+														 text:@"Yeah, that's what I was thinking too. I don't currently have any good blazers and am thinking of buying one this afternoon. I had something like this pic in mind."],
+					 
                      nil];
 	
 //    [self addPhotoMediaMessage];
@@ -149,7 +164,7 @@
 
 - (void)addPhotoMediaMessage
 {
-    JSQPhotoMediaItem *photoItem = [[JSQPhotoMediaItem alloc] initWithImage:[UIImage imageNamed:@"goldengate"]];
+    JSQPhotoMediaItem *photoItem = [[JSQPhotoMediaItem alloc] initWithImage:[UIImage imageNamed:@"md-blazer.jpg"]];
     JSQMediaMessage *photoMessage = [JSQMediaMessage messageWithSenderId:kJSQDemoAvatarIdRajat
                                                              displayName:kJSQDemoAvatarDisplayNameRajat
                                                                    media:photoItem];
