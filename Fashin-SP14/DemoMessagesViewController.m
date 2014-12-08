@@ -18,6 +18,7 @@
 
 #import "DemoMessagesViewController.h"
 #import <Parse/Parse.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @implementation DemoMessagesViewController
 
@@ -77,6 +78,11 @@
 		if (!error)
 		{
 			NSLog(@"Successfully retrieved %lu messages.", objects.count);
+			
+			//No new messages since last refresh
+			if(objects.count == self.demoData.messages.count)
+				return;
+			
 			NSMutableArray *fetchedMessagesModel = [NSMutableArray array];
 			for (PFObject *object in objects) {
 				//			  NSLog(@"%@", object[@"message"]);
@@ -132,6 +138,7 @@
     }
 }
 
+NSTimer *t1;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -161,7 +168,16 @@
 		self.title = @"Fashin Session";
 	
 	[self forceRefresh];
+	
+	t1 = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(forceRefresh) userInfo:nil repeats:YES];
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+	[super viewWillDisappear:animated];
+//	NSLog(@"view will disappear");
+	[t1 invalidate];
+}
+
 
 
 
@@ -169,7 +185,17 @@
 
 - (void)closePressed:(UIBarButtonItem *)sender
 {
-    [self.delegateModal didDismissJSQDemoViewController:self];
+	[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+	self.convoObj[@"status"] = @"ended";
+	
+	__weak typeof(self) weakSelf = self;
+	[self.convoObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+		[SVProgressHUD dismiss];
+		if(!error)
+		{
+			[weakSelf.delegateModal didDismissJSQDemoViewController:self];
+		}
+	}];
 }
 
 
