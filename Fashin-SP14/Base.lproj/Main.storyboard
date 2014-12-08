@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ce7-5C-3Nc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ce7-5C-3Nc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Welcome-->
@@ -151,17 +152,18 @@
                         <viewControllerLayoutGuide type="bottom" id="9Vo-zY-agn"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cQr-gn-LOC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" fixedFrame="YES" image="fashin-bg" translatesAutoresizingMaskIntoConstraints="NO" id="kz4-jh-lsx">
-                                <rect key="frame" x="-50" y="-20" width="594" height="609"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="fashin-bg" translatesAutoresizingMaskIntoConstraints="NO" id="kz4-jh-lsx">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="f-logo-w-shadow" translatesAutoresizingMaskIntoConstraints="NO" id="FKo-Zh-ZQS">
-                                <rect key="frame" x="40" y="205" width="240" height="128"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7d-wq-iUh">
-                                <rect key="frame" x="46" y="502" width="229" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7d-wq-iUh">
+                                <rect key="frame" x="73" y="610" width="229" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="229" id="6Ka-5x-Qjd"/>
+                                    <constraint firstAttribute="height" constant="34" id="LM1-21-lV6"/>
+                                </constraints>
                                 <state key="normal" title="Connect using Email">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -169,8 +171,12 @@
                                     <segue destination="hVB-Ip-d3A" kind="push" id="vol-qx-RyB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rA6-WQ-odY">
-                                <rect key="frame" x="61" y="468" width="199" height="38"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rA6-WQ-odY">
+                                <rect key="frame" x="83" y="568" width="209" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="PqH-Ax-ZO9"/>
+                                    <constraint firstAttribute="width" constant="209" id="iHK-fR-J1h"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" backgroundImage="fb-login2">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -183,15 +189,32 @@
                                     <action selector="tappedSignInWithFB:" destination="Aer-Lg-zf2" eventType="touchUpInside" id="4a9-Cy-UCS"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="f-logo-w-shadow" translatesAutoresizingMaskIntoConstraints="NO" id="FKo-Zh-ZQS">
+                                <rect key="frame" x="62" y="265" width="250" height="113"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FKo-Zh-ZQS" firstAttribute="leading" secondItem="cQr-gn-LOC" secondAttribute="leadingMargin" constant="46" id="2Ix-d0-tAt"/>
+                            <constraint firstItem="kz4-jh-lsx" firstAttribute="bottom" secondItem="9Vo-zY-agn" secondAttribute="top" id="512-iT-Rfb"/>
+                            <constraint firstItem="c7d-wq-iUh" firstAttribute="centerX" secondItem="rA6-WQ-odY" secondAttribute="centerX" id="AEN-8o-aut"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FKo-Zh-ZQS" secondAttribute="trailing" constant="47" id="CG0-jn-Woh"/>
+                            <constraint firstItem="9Vo-zY-agn" firstAttribute="top" secondItem="c7d-wq-iUh" secondAttribute="bottom" constant="23" id="H5g-cD-I45"/>
+                            <constraint firstAttribute="centerX" secondItem="c7d-wq-iUh" secondAttribute="centerX" constant="-0.5" id="J2F-9b-LaQ"/>
+                            <constraint firstAttribute="trailing" secondItem="kz4-jh-lsx" secondAttribute="trailing" id="Q9D-Ip-laK"/>
+                            <constraint firstAttribute="centerY" secondItem="FKo-Zh-ZQS" secondAttribute="centerY" constant="12" id="Qpn-86-rEb"/>
+                            <constraint firstItem="c7d-wq-iUh" firstAttribute="top" secondItem="rA6-WQ-odY" secondAttribute="bottom" constant="2" id="jUu-VC-mPs"/>
+                            <constraint firstItem="kz4-jh-lsx" firstAttribute="leading" secondItem="cQr-gn-LOC" secondAttribute="leading" id="lPK-Bo-Iko"/>
+                            <constraint firstAttribute="centerX" secondItem="FKo-Zh-ZQS" secondAttribute="centerX" constant="0.5" id="xa4-0E-JGC"/>
+                            <constraint firstItem="kz4-jh-lsx" firstAttribute="top" secondItem="cQr-gn-LOC" secondAttribute="top" id="xbd-9E-Fn0"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6V9-bo-Heb"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gHp-Fb-4dH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2" y="-903"/>
+            <point key="canvasLocation" x="-39.5" y="-884.5"/>
         </scene>
         <!--Connect using Email-->
         <scene sceneID="gWr-B9-rlf">
@@ -323,7 +346,7 @@
     <resources>
         <image name="f-logo-b" width="500" height="500"/>
         <image name="f-logo-w-shadow" width="348" height="113"/>
-        <image name="fashin-bg" width="1200" height="857"/>
+        <image name="fashin-bg" width="160" height="284"/>
         <image name="fb-login2" width="398" height="75"/>
         <image name="zigzag.png" width="1002" height="110"/>
     </resources>

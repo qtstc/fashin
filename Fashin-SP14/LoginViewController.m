@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	
+	[self setNeedsStatusBarAppearanceUpdate];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -51,4 +51,9 @@
 	}];
 	
 }
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+	return UIStatusBarStyleLightContent;
+}
+
 @end

@@ -10,7 +10,7 @@ PODS:
     - Facebook-iOS-SDK (~> 3.19.0)
     - Parse (~> 1.4.2)
   - SDWebImage (3.7.1):
-    - SDWebImage/Core
+    - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
   - SVProgressHUD (1.0)
   - TTTAttributedLabel (1.10.1)
@@ -36,4 +36,4 @@ SPEC CHECKSUMS:
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
 
-COCOAPODS: 0.34.2
+COCOAPODS: 0.35.0
