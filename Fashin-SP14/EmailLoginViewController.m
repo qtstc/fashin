@@ -43,6 +43,7 @@
 		[self showErrorWithString:@"Both email and password fields must be non empty"];
 		return;
 	}
+	
 	//MARK_TODO: impose password min length in production
 	
 	//proceed to login
@@ -53,6 +54,7 @@
 		user.username = self.emailTextField.text;
 		user.password = self.passwordTextField.text;
 		user.email = self.emailTextField.text;
+		user[@"typeOfUser"] = @"customer";
 		
 		[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 		 {

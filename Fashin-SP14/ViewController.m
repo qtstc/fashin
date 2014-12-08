@@ -44,6 +44,13 @@
 		UINavigationController *loginVC = [storyboard instantiateViewControllerWithIdentifier:@"LoginNavController"];
 		[self presentViewController:loginVC animated:animated completion:nil];
 	}
+	else
+	{
+		//check for type of user
+		NSString *typeOfUser = [PFUser currentUser][@"typeOfUser"];
+		[[NSUserDefaults standardUserDefaults] setObject:typeOfUser forKey:@"typeOfUser"];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
 }
 
 - (IBAction)testMessagingUITapped:(id)sender
@@ -65,28 +72,50 @@
 
 - (IBAction)createSessionTapped:(id)sender {
 	
+	if(![PFUser currentUser])
+		return;
+	
 	[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
 
-	PFObject *feedbackObj = [PFObject objectWithClassName:@"Requests"];
-	feedbackObj[@"customer"] = @"Rajat";
-	feedbackObj[@"stylist"] = @"Courtney";
-	feedbackObj[@"status"] = @"test_finished";
+	PFObject *requestObj = [PFObject objectWithClassName:@"Requests"];
+	requestObj[@"customerObject"] = [PFUser currentUser];
+	requestObj[@"status"] = @"matching";
+	//matching, chatting, ended, nomatch
 	
-	[feedbackObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+	[requestObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 		[SVProgressHUD dismiss];
 		
 		if(succeeded)
 		{
-			[PFAnalytics trackEvent:@"Rating Provided"];
-			[self dismissViewControllerAnimated:YES completion:nil];
+			NSString *requestID = requestObj.objectId;
+			NSLog(@"create new session success: %@", requestID);
+
+			[PFCloud callFunctionInBackground:@"pingStylist"
+							   withParameters:@{@"requestID":requestID}
+										block:^(NSString *result, NSError *error) {
+											if (!error) {
+												NSLog(@"result:%@", result);
+											}
+											else
+											{
+												NSLog(@"pingStylist error:%@", error);
+											}
+										}];
 		}
 		else
 		{
-			[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Something went wrong. Coulnd't save feedback. Please tap Done again" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
-			NSLog(@"feedback save error: %@", error);
+			[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Something went wrong. Coulnd't create a new request. Please try again later." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil] show];
+			NSLog(@"create new session save error: %@", error);
 		}
 	}];
 	
 }
+
+
+- (IBAction)tappedProfileButton:(id)sender {
+	
+}
+
+
 
 @end
