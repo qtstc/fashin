@@ -48,8 +48,7 @@
 			NSLog(@"User logged in through Facebook!");
 			[self dismissLoginVC];
 		}
-	}];
-	
+	}];	
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		043EABB91A3575E90084B439 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EABB81A3575E90084B439 /* ProfileViewController.m */; };
 		045F49DD19DDA9D1000AFC93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F49DC19DDA9D1000AFC93 /* main.m */; };
 		045F49E019DDA9D1000AFC93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F49DF19DDA9D1000AFC93 /* AppDelegate.m */; };
 		045F49E319DDA9D1000AFC93 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045F49E219DDA9D1000AFC93 /* ViewController.m */; };
@@ -113,6 +114,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		043EABB71A3575E90084B439 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		043EABB81A3575E90084B439 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		045F49D719DDA9D1000AFC93 /* Fashin-SP14.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fashin-SP14.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		045F49DB19DDA9D1000AFC93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		045F49DC19DDA9D1000AFC93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -319,6 +322,8 @@
 				04ACFE8119DE64B200B7839F /* EmailLoginViewController.m */,
 				049C07E319EF9B9A004AC7E0 /* RatingViewController.h */,
 				049C07E419EF9B9A004AC7E0 /* RatingViewController.m */,
+				043EABB71A3575E90084B439 /* ProfileViewController.h */,
+				043EABB81A3575E90084B439 /* ProfileViewController.m */,
 				049C07FF19EFC68F004AC7E0 /* Messaging */,
 				045F49E419DDA9D1000AFC93 /* Main.storyboard */,
 				045F49E719DDA9D1000AFC93 /* Images.xcassets */,
@@ -833,6 +838,7 @@
 				049C089D19EFCD1A004AC7E0 /* JSQSystemSoundPlayer+JSQMessages.m in Sources */,
 				049C08A219EFCD1A004AC7E0 /* UIView+JSQMessages.m in Sources */,
 				049C08B719EFCD1A004AC7E0 /* JSQMessagesCollectionViewCellIncoming.m in Sources */,
+				043EABB91A3575E90084B439 /* ProfileViewController.m in Sources */,
 				049C080519EFC6C7004AC7E0 /* NSUserDefaults+DemoSettings.m in Sources */,
 				049C08BE19EFCD1A004AC7E0 /* JSQMessagesLoadEarlierHeaderView.m in Sources */,
 				049C08BD19EFCD1A004AC7E0 /* JSQMessagesLabel.m in Sources */,
