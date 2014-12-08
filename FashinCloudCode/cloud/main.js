@@ -4,6 +4,76 @@ Parse.Cloud.define("hello", function(request, response) {
   	response.success("This is twillio from tao!");
 });
 
+Parse.Cloud.define("respondRequest", function(request,response){
+  var rID = request.params.requestID;
+  var isAccepted = request.params.isAccepted;
+  var Requests = Parse.Object.extend("Requests");
+  var requestQuery = new Parse.Query(Requests);
+  // Frist get the request by ID
+  requestQuery.get(rID, {
+    success: function(request) {
+      if(isAccepted)
+      {
+        request.set('status',"chatting");
+        request.save(null, {
+          success: function(request) {
+
+            console.log("Status updated to chatting for request: "+rID);
+            // Now we notifiy the user through push
+            var pushQuery = new Parse.Query(Parse.Installation);
+            pushQuery.equalTo('userObject', request.get('customerObject'));
+            Parse.Push.send({
+              where: pushQuery,
+              data: {
+                alert: "Your personal stylist is now online. Launch the app to continue.",
+                requestId:rID
+              }
+            }, {
+              success: function() {
+                response.success("Push sent successfully to customer for new match(chatting) "+request.get('customerObject').id);
+              },
+              error: function(error) {
+                response.fail("Failed to send push to customer for new match(chatting) "+request.get('customerObject').id);
+              }
+            });
+          },
+          error: function(object,error) {
+            response.fail("Error while updating the chatting for request:"+rID+":"+error);
+          }
+        });
+      }else
+      {
+        // First add the current stylist to rejected
+        var rejected = request.get('rejected');
+        if (rejected == null)
+        {
+          rejected = [];
+        }
+        rejected.push(request.get('stylistObject').id);
+        request.set('rejected',rejected);
+        request.save(null, {
+          success: function(request){
+            Parse.Cloud.run('pingStylist', {requestID:request.id}, {
+              success: function(result) {
+                response.success("Pinged other stylists!");
+              },
+              error: function(error) {
+                response.fail("Failed to ping other stylists:"+rID+":"+error);
+              }
+            });
+          },
+          error:function(object, error){
+            response.fail("Error while updating the rejected array for:"+rID+":"+error);
+          }
+        });
+      }
+    },
+    error: function(object, error) {
+      response.fail("Failed to get request:"+rID+":"+error);
+    }
+  });
+});
+
 Parse.Cloud.define("pingStylist", function(request, response){
   var rID = request.params.requestID;
   console.log("The request ID is "+rID);
@@ -55,7 +125,7 @@ Parse.Cloud.define("pingStylist", function(request, response){
                   }
                 });
               },
-              error: function(gameScore, error) {
+              error: function(object, error) {
                 response.fail("Error while updating the nomatch for request:"+rID+":"+error);
               }
             });
@@ -85,7 +155,7 @@ Parse.Cloud.define("pingStylist", function(request, response){
                   }
                 });
               },
-              error: function(gameScore, error) {
+              error: function(object, error) {
                 response.fail("Error when matching for request:"+rID+":"+error);
               }
             });
@@ -99,8 +169,8 @@ Parse.Cloud.define("pingStylist", function(request, response){
   });
 });
 
+/*
 Parse.Cloud.afterSave("Requests", function(request) {
-  /*
 	var rId = request.object.id;
 
 	// Find users near a given location
@@ -143,8 +213,8 @@ Parse.Cloud.afterSave("Requests", function(request) {
 	    // Handle error
 	  }
 	});
-*/
 });
+*/
 
 Parse.Cloud.define("generateToken", function(request, response) {
   var fs = require('fs');
