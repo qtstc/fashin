@@ -14,6 +14,8 @@
 #import "DemoMessagesViewController.h"
 
 @interface ViewController ()<JSQDemoViewControllerDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *stylistConsoleLabel;
 
 @end
 
@@ -50,6 +52,17 @@
 		NSString *typeOfUser = [PFUser currentUser][@"typeOfUser"];
 		[[NSUserDefaults standardUserDefaults] setObject:typeOfUser forKey:@"typeOfUser"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
+		
+		self.stylistConsoleLabel.hidden = ![typeOfUser isEqualToString:@"stylist"];
+		
+		NSString *firstName = [PFUser currentUser][@"firstName"];
+		if(firstName.length)
+		{
+			self.welcomeLabel.hidden = NO;
+			self.welcomeLabel.text = [NSString stringWithFormat:@"Hello, %@!", firstName];
+		}
+		else
+			self.welcomeLabel.hidden = YES;
 	}
 }
 
@@ -70,7 +83,32 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
 - (IBAction)createSessionTapped:(id)sender {
+	
+	if(![PFUser currentUser])
+		return;
+	
+	NSString *requestID = @"JywVRoKAzy";
+	bool isAccepted = NO;
+	
+	NSLog(@"create new session success: %@", requestID);
+	
+	[PFCloud callFunctionInBackground:@"respondRequest"
+					   withParameters:@{@"requestID":requestID, @"isAccepted":[NSNumber numberWithBool:isAccepted]}
+								block:^(NSString *result, NSError *error) {
+									if (!error) {
+										NSLog(@"result:%@", result);
+									}
+									else
+									{
+										NSLog(@"respondRequest error:%@", error);
+									}
+								}];
+	
+}
+
+- (IBAction)createSessionTapped_ping:(id)sender {
 	
 	if(![PFUser currentUser])
 		return;

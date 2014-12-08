@@ -17,7 +17,7 @@
 //
 
 #import "DemoMessagesViewController.h"
-
+#import <Parse/Parse.h>
 
 @implementation DemoMessagesViewController
 
@@ -62,16 +62,47 @@
         self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"typing"]
-                                                                              style:UIBarButtonItemStyleBordered
-                                                                             target:self
-                                                                             action:@selector(receiveMessagePressed:)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"typing"]
+//                                                                              style:UIBarButtonItemStyleBordered
+//                                                                             target:self
+//                                                                             action:@selector(receiveMessagePressed:)];
+//	
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStyleBordered target:self action:@selector(forceRefresh)];
+}
+
+-(void)forceRefresh{
+	NSLog(@"forceRefresh");
+	
+	PFQuery *query = [PFQuery queryWithClassName:@"FMsg"];
+	[query whereKey:@"conversation" equalTo:@"c01"];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+		if (!error)
+		{
+			NSLog(@"Successfully retrieved %lu messages.", objects.count);
+			NSMutableArray *fetchedMessagesModel = [NSMutableArray array];
+			for (PFObject *object in objects) {
+				//			  NSLog(@"%@", object[@"message"]);
+		  
+				NSString *msgText = object[@"message"];
+				JSQTextMessage *msg = [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdRajat
+															 senderDisplayName:kJSQDemoAvatarDisplayNameRajat
+																		  date:[NSDate date]
+																		  text:msgText];
+				[fetchedMessagesModel addObject:msg];
+				self.demoData.messages = fetchedMessagesModel;
+				[self.collectionView reloadData];
+			}
+		}
+		else {
+			NSLog(@"Error: %@ %@", error, [error userInfo]);
+		}
+	}];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+	
     if (self.delegateModal) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop
                                                                                               target:self
@@ -276,10 +307,27 @@
                                                      senderDisplayName:senderDisplayName
                                                                   date:date
                                                                   text:text];
-    
-    [self.demoData.messages addObject:message];
-    [self finishSendingMessage];
+	
+	[self.demoData.messages addObject:message];
+	NSLog(@"new message: %@ %@ %@", text, senderId, senderDisplayName);
+	[self uploadMessageToServer:text];
+	[self finishSendingMessage];
 }
+
+
+-(void)uploadMessageToServer:(NSString *)text{
+	if(!text)
+		return;
+	
+	PFObject *gameScore = [PFObject objectWithClassName:@"FMsg"];
+	gameScore[@"message"] = text;
+	gameScore[@"sender"] = @"customer";
+	gameScore[@"recepient"] = @"stylist";
+	gameScore[@"conversation"] = @"c01";
+	[gameScore saveInBackground];
+}
+
+
 
 - (void)didPressAccessoryButton:(UIButton *)sender
 {
