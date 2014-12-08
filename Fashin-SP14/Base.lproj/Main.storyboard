@@ -89,7 +89,77 @@
                     <view key="view" contentMode="scaleToFill" id="KMC-SZ-49O">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QKj-im-34e">
+                                <rect key="frame" x="16" y="161" width="65" height="30"/>
+                                <state key="normal" title="Edit Card">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="captureCardTapped:" destination="XFt-wJ-OaR" eventType="touchUpInside" id="L9L-a6-bLa"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Payment info" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hjc-hX-gWt">
+                                <rect key="frame" x="16" y="132" width="101" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="coupon or balance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Isz-YA-l3e">
+                                <rect key="frame" x="16" y="249" width="144" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="invite" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMl-2i-g1H">
+                                <rect key="frame" x="16" y="314" width="41" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2tm-Au-oGN">
+                                <rect key="frame" x="178" y="165" width="126" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="126" id="2iX-mn-odd"/>
+                                    <constraint firstAttribute="height" constant="21" id="nMk-QV-gEu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycx-rw-p9x">
+                                <rect key="frame" x="16" y="194" width="48" height="30"/>
+                                <state key="normal" title="PayPal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedPaypalButton:" destination="XFt-wJ-OaR" eventType="touchUpInside" id="OaS-Ci-EG4"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gT8-eD-Iqk">
+                                <rect key="frame" x="178" y="198" width="126" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="126" id="hyW-Sq-Rii"/>
+                                    <constraint firstAttribute="height" constant="21" id="vnR-T6-DjT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="contact us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyj-FV-P3U">
+                                <rect key="frame" x="16" y="368" width="81" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gT8-eD-Iqk" firstAttribute="trailing" secondItem="KMC-SZ-49O" secondAttribute="trailingMargin" id="1Qu-f3-dkc"/>
+                            <constraint firstItem="gT8-eD-Iqk" firstAttribute="top" secondItem="2tm-Au-oGN" secondAttribute="bottom" constant="12" id="EHo-nd-lcn"/>
+                            <constraint firstItem="2tm-Au-oGN" firstAttribute="top" secondItem="bKw-Vd-DPM" secondAttribute="bottom" constant="101" id="cNg-ub-Lmv"/>
+                            <constraint firstItem="2tm-Au-oGN" firstAttribute="trailing" secondItem="KMC-SZ-49O" secondAttribute="trailingMargin" id="j65-h0-oaE"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Settings" id="IiW-Rn-8Or">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="gMU-CE-oxK">
@@ -104,10 +174,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="cardInfoLabel" destination="2tm-Au-oGN" id="SLd-74-nQ1"/>
+                        <outlet property="paypalInfoLabel" destination="gT8-eD-Iqk" id="LTt-fd-2nk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CcO-cI-6bx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="361" y="406"/>
+            <point key="canvasLocation" x="315" y="406"/>
         </scene>
         <!--Rating & Feedback-->
         <scene sceneID="vir-qP-ssI">
