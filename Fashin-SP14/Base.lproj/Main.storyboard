@@ -25,7 +25,7 @@
                                     <constraint firstAttribute="height" constant="128" id="kvo-SY-rTb"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLE-Ak-gUQ">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLE-Ak-gUQ">
                                 <rect key="frame" x="104" y="306" width="113" height="30"/>
                                 <state key="normal" title="Test Rating View">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,7 +34,7 @@
                                     <segue destination="iCh-kW-n1Y" kind="presentation" id="zdd-QG-Qm2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gat-eP-vFn">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gat-eP-vFn">
                                 <rect key="frame" x="77" y="350" width="166" height="30"/>
                                 <state key="normal" title="Test Messages Interface">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,8 +43,59 @@
                                     <action selector="testMessagingUITapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="sPA-Fh-vto"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FVo-zy-Pne">
-                                <rect key="frame" x="108" y="268" width="104" height="30"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="f5u-Te-wMY">
+                                <rect key="frame" x="31" y="112" width="259" height="23"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stylist Console" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2C-rL-qeO">
+                                <rect key="frame" x="103" y="220" width="115" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="WvM-RA-2eM"/>
+                                    <constraint firstAttribute="width" constant="115" id="buf-DC-Isx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogK-q6-stC">
+                                <rect key="frame" x="103" y="156" width="115" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="115" id="PE7-uK-O4k"/>
+                                    <constraint firstAttribute="height" constant="21" id="giY-7n-Alm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ts6-Ca-StV">
+                                <rect key="frame" x="40" y="399" width="240" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofh-ku-oFV">
+                                <rect key="frame" x="77" y="433" width="49" height="30"/>
+                                <state key="normal" title="Accept">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedAcceptRequestBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="EPS-ku-HSj"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IfD-fw-zC1">
+                                <rect key="frame" x="194" y="433" width="44" height="30"/>
+                                <state key="normal" title="Reject">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedRejectRequestBtn:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QtZ-4N-8RS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FVo-zy-Pne">
+                                <rect key="frame" x="99" y="268" width="123" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Create Session">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -52,29 +103,18 @@
                                     <action selector="createSessionTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="sUS-Bb-0oZ"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="f5u-Te-wMY">
-                                <rect key="frame" x="31" y="112" width="259" height="23"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stylist Console" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2C-rL-qeO">
-                                <rect key="frame" x="103" y="220" width="115" height="21"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogK-q6-stC">
-                                <rect key="frame" x="103" y="156" width="115" height="21"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="uNf-DO-IqY" secondAttribute="centerX" id="1VP-rM-hSa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FVo-zy-Pne" secondAttribute="trailing" constant="82" id="61d-jb-Jd9"/>
+                            <constraint firstAttribute="centerX" secondItem="ogK-q6-stC" secondAttribute="centerX" constant="-0.5" id="7OR-gn-Txf"/>
+                            <constraint firstItem="uNf-DO-IqY" firstAttribute="top" secondItem="ogK-q6-stC" secondAttribute="bottom" constant="-45" id="F0v-57-OTW"/>
+                            <constraint firstItem="FVo-zy-Pne" firstAttribute="top" secondItem="uNf-DO-IqY" secondAttribute="bottom" constant="8" id="YAa-XJ-9o1"/>
                             <constraint firstItem="uNf-DO-IqY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="68" id="bWT-60-6jv"/>
+                            <constraint firstItem="FVo-zy-Pne" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="83" id="dpe-0n-kLs"/>
+                            <constraint firstItem="f2C-rL-qeO" firstAttribute="top" secondItem="uNf-DO-IqY" secondAttribute="bottom" constant="-40" id="f3l-hQ-NhQ"/>
+                            <constraint firstAttribute="centerX" secondItem="f2C-rL-qeO" secondAttribute="centerX" constant="-0.5" id="iT2-1t-kQ5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Welcome" id="ezA-1l-5C0">
@@ -92,13 +132,17 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="acceptBtnOutlet" destination="ofh-ku-oFV" id="AM4-W0-Oa4"/>
+                        <outlet property="createSessionBtnOutlet" destination="FVo-zy-Pne" id="szf-nK-ac7"/>
+                        <outlet property="pendingRequestLabel" destination="Ts6-Ca-StV" id="zFk-vK-hF6"/>
+                        <outlet property="rejectButtonOutlet" destination="IfD-fw-zC1" id="NlQ-kd-317"/>
                         <outlet property="stylistConsoleLabel" destination="f2C-rL-qeO" id="c89-Ol-r31"/>
                         <outlet property="welcomeLabel" destination="f5u-Te-wMY" id="SuO-SZ-2ug"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-219" y="-228"/>
+            <point key="canvasLocation" x="-33" y="-229"/>
         </scene>
         <!--My Settings-->
         <scene sceneID="Omo-Eh-TkE">
@@ -497,7 +541,7 @@
         <!--Navigation Controller-->
         <scene sceneID="on6-RP-hed">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iCh-kW-n1Y" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RatingVCNav" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iCh-kW-n1Y" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KRU-cY-q1i">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

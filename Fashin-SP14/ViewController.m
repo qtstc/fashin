@@ -12,10 +12,15 @@
 #import <SVProgressHUD.h>
 
 #import "DemoMessagesViewController.h"
+#import "RatingViewController.h"
 
 @interface ViewController ()<JSQDemoViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stylistConsoleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *acceptBtnOutlet;
+@property (weak, nonatomic) IBOutlet UIButton *rejectButtonOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *pendingRequestLabel;
+@property (weak, nonatomic) IBOutlet UIButton *createSessionBtnOutlet;
 
 @end
 
@@ -24,6 +29,13 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForSessionStatus) name:@"applicationDidBecomeActive" object:nil];
+}
+
+-(void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"applicationDidBecomeActive" object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -61,6 +73,7 @@
 		[[NSUserDefaults standardUserDefaults] synchronize];
 		
 		self.stylistConsoleLabel.hidden = ![typeOfUser isEqualToString:@"stylist"];
+		self.createSessionBtnOutlet.hidden = ![typeOfUser isEqualToString:@"customer"];
 		
 		NSString *firstName = [PFUser currentUser][@"firstName"];
 		if(firstName.length)
@@ -88,7 +101,6 @@
 	else
 		self.welcomeLabel.hidden = YES;
 
-	
 	[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
 	
 	PFQuery *query = [PFQuery queryWithClassName:@"Requests"];
@@ -111,7 +123,11 @@
 		if (!error)
 		{
 			PFObject *sessionObj = [objects firstObject];
-			//NSLog(@"%@", sessionObj);
+			NSLog(@"%@", sessionObj);
+			
+			self.pendingRequestLabel.hidden = YES;
+			self.acceptBtnOutlet.hidden = YES;
+			self.rejectButtonOutlet.hidden = YES;
 			
 			NSString *status = sessionObj[@"status"];
 			if([status isEqualToString:@"chatting"])
@@ -125,6 +141,13 @@
 				vc.stylistObj = sessionObj[@"stylistObject"];;
 				vc.convoObj = sessionObj;
 				vc.custObj = sessionObj[@"customerObject"];
+			}
+			else if([status isEqualToString:@"matching"] && [typeOfUser isEqualToString:@"stylist"])
+			{
+				self.pendingRequestLabel.hidden = NO;
+				self.acceptBtnOutlet.hidden = NO;
+				self.rejectButtonOutlet.hidden = NO;
+				self.pendingRequestLabel.text = @"You have an incoming session request.";
 			}
 		}
 		else {
@@ -147,32 +170,14 @@
 
 - (void)didDismissJSQDemoViewController:(DemoMessagesViewController *)vc
 {
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-- (IBAction)createSessionTapped2:(id)sender {
-	
-	if(![PFUser currentUser])
-		return;
-	
-	NSString *requestID = @"JywVRoKAzy";
-	bool isAccepted = NO;
-	
-	NSLog(@"create new session success: %@", requestID);
-	
-	[PFCloud callFunctionInBackground:@"respondRequest"
-					   withParameters:@{@"requestID":requestID, @"isAccepted":[NSNumber numberWithBool:isAccepted]}
-								block:^(NSString *result, NSError *error) {
-									if (!error) {
-										NSLog(@"result:%@", result);
-									}
-									else
-									{
-										NSLog(@"respondRequest error:%@", error);
-									}
-								}];
-	
+	[self dismissViewControllerAnimated:YES completion:^{
+		UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
+															 bundle:nil];
+		UINavigationController *ratingVC = [storyboard instantiateViewControllerWithIdentifier:@"RatingVCNav"];
+//		[self.navigationController pushViewController:ratingVC animated:YES];
+//		ratingVC.navigationItem.backBarButtonItem
+		[self presentViewController:ratingVC animated:YES completion:nil];
+	}];
 }
 
 - (IBAction)createSessionTapped:(id)sender {
@@ -221,6 +226,36 @@
 	
 }
 
+- (IBAction)tappedAcceptRequestBtn:(id)sender {
+	[self saveStylistResponse:YES];
+}
 
+
+- (IBAction)tappedRejectRequestBtn:(id)sender {
+	[self saveStylistResponse:NO];
+}
+
+
+- (void)saveStylistResponse:(bool)stylistResponse
+{
+	if(![PFUser currentUser])
+		return;
+	
+	NSString *requestID = @"JywVRoKAzy";
+	bool isAccepted = stylistResponse;
+	
+	[PFCloud callFunctionInBackground:@"respondRequest"
+					   withParameters:@{@"requestID":requestID, @"isAccepted":[NSNumber numberWithBool:isAccepted]}
+								block:^(NSString *result, NSError *error) {
+									if (!error) {
+										NSLog(@"respondRequest result:%@", result);
+									}
+									else
+									{
+										NSLog(@"respondRequest error:%@", error);
+									}
+								}];
+	
+}
 
 @end

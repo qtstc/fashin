@@ -66,7 +66,23 @@
 //                                                                             target:self
 //                                                                             action:@selector(receiveMessagePressed:)];
 //	
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStyleBordered target:self action:@selector(forceRefresh)];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Call" style:UIBarButtonItemStyleBordered target:self action:@selector(callButtonTapped)];
+}
+
+-(void)callButtonTapped{
+	NSString *faceTimeUrlScheme = [@"facetime-audio://" stringByAppendingString:@"7657190035"];
+	NSURL    *facetimeURL       = [NSURL URLWithString:faceTimeUrlScheme];
+	
+	// Facetime is available or not
+	if ([[UIApplication sharedApplication] canOpenURL:facetimeURL])
+	{
+		[[UIApplication sharedApplication] openURL:facetimeURL];
+	}
+	else
+	{
+		NSLog(@"cannot facetime");
+		// Facetime not available
+	}
 }
 
 -(void)forceRefresh{
@@ -77,7 +93,7 @@
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 		if (!error)
 		{
-			NSLog(@"Successfully retrieved %lu messages.", objects.count);
+			//NSLog(@"Successfully retrieved %lu messages.", objects.count);
 			
 			//No new messages since last refresh
 			if(objects.count == self.demoData.messages.count)

@@ -59,6 +59,8 @@
 
 	//From Parse FB Docs
 	[FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"applicationDidBecomeActive" object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

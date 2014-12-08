@@ -38,7 +38,7 @@
 
 - (void)populateWithMockData
 {
-	int minutes = arc4random() % 5 + 2;
+	int minutes = arc4random() % 2 + 1;
 	self.sessionCost = minutes * 4;
 	self.minutesLabel.text = [NSString stringWithFormat:@"%i minutes session",minutes];
 	self.amountLabel.text = [NSString stringWithFormat:@"$%i",self.sessionCost];
