@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *rejectButtonOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *pendingRequestLabel;
 @property (weak, nonatomic) IBOutlet UIButton *createSessionBtnOutlet;
-
+@property (strong, nonatomic) NSString* requestID;
 @end
 
 @implementation ViewController
@@ -148,6 +148,7 @@
 				self.acceptBtnOutlet.hidden = NO;
 				self.rejectButtonOutlet.hidden = NO;
 				self.pendingRequestLabel.text = @"You have an incoming session request.";
+				self.requestID = sessionObj.objectId;
 			}
 		}
 		else {
@@ -205,6 +206,8 @@
 										block:^(NSString *result, NSError *error) {
 											if (!error) {
 												NSLog(@"result:%@", result);
+												
+												[[[UIAlertView alloc] initWithTitle:@"Session requested" message:@"You may close the app now. We will notify you when your stylist is online" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil] show];
 											}
 											else
 											{
@@ -238,17 +241,20 @@
 
 - (void)saveStylistResponse:(bool)stylistResponse
 {
-	if(![PFUser currentUser])
+	if(![PFUser currentUser] || !self.requestID)
 		return;
 	
-	NSString *requestID = @"JywVRoKAzy";
+	NSString *requestID = self.requestID;
 	bool isAccepted = stylistResponse;
+	
+	__weak typeof(self) wself = self;
 	
 	[PFCloud callFunctionInBackground:@"respondRequest"
 					   withParameters:@{@"requestID":requestID, @"isAccepted":[NSNumber numberWithBool:isAccepted]}
 								block:^(NSString *result, NSError *error) {
 									if (!error) {
 										NSLog(@"respondRequest result:%@", result);
+										[wself checkForSessionStatus];
 									}
 									else
 									{
