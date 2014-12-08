@@ -228,30 +228,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kli-qM-VCI">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kli-qM-VCI">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="x5N-K3-wOD">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="x5N-K3-wOD">
                                         <rect key="frame" x="43" y="28" width="235" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="235" id="S7G-89-2om"/>
+                                            <constraint firstAttribute="height" constant="28" id="eBH-ZV-ydO"/>
+                                        </constraints>
                                         <segments>
                                             <segment title="Sign Up"/>
                                             <segment title="Log In"/>
                                         </segments>
                                         <color key="tintColor" red="0.12941176469999999" green="0.57647058819999997" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </segmentedControl>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xIw-WU-8FM">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xIw-WU-8FM">
                                         <rect key="frame" x="17" y="92" width="287" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nyj-Kd-g2E">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nyj-Kd-g2E">
                                         <rect key="frame" x="18" y="140" width="285" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go" secureTextEntry="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGG-B1-v67">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGG-B1-v67">
                                         <rect key="frame" x="201" y="187" width="102" height="30"/>
                                         <color key="backgroundColor" red="0.60784313729999995" green="0.81568627449999997" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="102" id="mAb-np-eSc"/>
+                                        </constraints>
                                         <state key="normal" title="Go!">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -260,7 +267,7 @@
                                             <action selector="tappedGoButton:" destination="hVB-Ip-d3A" eventType="touchUpInside" id="RUh-RV-O3B"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sHZ-xv-EPS">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sHZ-xv-EPS">
                                         <rect key="frame" x="97" y="235" width="126" height="30"/>
                                         <state key="normal" title="Forgot Password?">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -270,9 +277,31 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="nyj-Kd-g2E" firstAttribute="centerX" secondItem="kli-qM-VCI" secondAttribute="centerX" id="2k0-wh-gbo"/>
+                                    <constraint firstItem="sHZ-xv-EPS" firstAttribute="centerX" secondItem="nyj-Kd-g2E" secondAttribute="centerX" id="5Cr-3j-3j7"/>
+                                    <constraint firstItem="xIw-WU-8FM" firstAttribute="centerX" secondItem="nyj-Kd-g2E" secondAttribute="centerX" id="6DG-U6-6RU"/>
+                                    <constraint firstItem="x5N-K3-wOD" firstAttribute="top" secondItem="kli-qM-VCI" secondAttribute="top" constant="28" id="DqZ-lF-7Fc"/>
+                                    <constraint firstItem="EGG-B1-v67" firstAttribute="top" secondItem="nyj-Kd-g2E" secondAttribute="bottom" constant="17" id="Lgn-D4-Wkw"/>
+                                    <constraint firstItem="nyj-Kd-g2E" firstAttribute="trailing" secondItem="EGG-B1-v67" secondAttribute="trailing" id="MHW-bv-6sA"/>
+                                    <constraint firstItem="xIw-WU-8FM" firstAttribute="top" secondItem="x5N-K3-wOD" secondAttribute="bottom" constant="36" id="OgZ-xG-KxO"/>
+                                    <constraint firstItem="sHZ-xv-EPS" firstAttribute="top" secondItem="EGG-B1-v67" secondAttribute="bottom" constant="18" id="V97-QP-MHE"/>
+                                    <constraint firstAttribute="trailing" secondItem="xIw-WU-8FM" secondAttribute="trailing" constant="16" id="gOY-12-w8K"/>
+                                    <constraint firstItem="nyj-Kd-g2E" firstAttribute="top" secondItem="xIw-WU-8FM" secondAttribute="bottom" constant="18" id="psz-V1-zLV"/>
+                                    <constraint firstItem="nyj-Kd-g2E" firstAttribute="leading" secondItem="kli-qM-VCI" secondAttribute="leading" constant="18" id="qSb-Wv-mp1"/>
+                                    <constraint firstAttribute="bottom" secondItem="sHZ-xv-EPS" secondAttribute="bottom" constant="303" id="tYM-Z3-BOx"/>
+                                    <constraint firstItem="xIw-WU-8FM" firstAttribute="leading" secondItem="kli-qM-VCI" secondAttribute="leading" constant="17" id="una-NZ-wTk"/>
+                                    <constraint firstItem="xIw-WU-8FM" firstAttribute="centerX" secondItem="x5N-K3-wOD" secondAttribute="centerX" id="zMm-Dx-E5R"/>
+                                </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kli-qM-VCI" secondAttribute="trailing" id="3je-U0-VY4"/>
+                            <constraint firstItem="kli-qM-VCI" firstAttribute="leading" secondItem="pr7-As-kAw" secondAttribute="leading" id="GKE-m0-cAV"/>
+                            <constraint firstItem="kli-qM-VCI" firstAttribute="top" secondItem="pr7-As-kAw" secondAttribute="top" id="nL3-gc-qMt"/>
+                            <constraint firstItem="kli-qM-VCI" firstAttribute="bottom" secondItem="OFv-YU-G9S" secondAttribute="top" id="q71-gn-Rhc"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Connect using Email" id="q2Z-3t-DcO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
