@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  
+
   <div id="main">
     <h1>You're ready to use Parse!</h1>
 
@@ -29,7 +29,7 @@
 
     <div style="display:none" class="success">
       <p>We've also just created your first object using the following code:</p>
-      
+
         <code>
           var TestObject = Parse.Object.extend("TestObject");<br/>
           var testObject = new TestObject();<br/>
@@ -40,8 +40,8 @@
 
   <script type="text/javascript">
     Parse.initialize("ZNvDp6y8JgM4zS2XauBXaxe0weM10H9z5bU2Pana", "HkuxPZJ1dwnHxSwii0W7kccbGRN2vZfkjzXeXO67");
-    
-    Parse.Cloud.run('hello', {}, {
+
+    Parse.Cloud.run('pingStylist', {requestID:'xk0mCFL48z'}, {
 
       success: function(result) {
         console.log(result);
@@ -50,6 +50,30 @@
         console.log(error);
       }
     });
+    var rID = "xk0mCFL48z";
+
+    /*
+    var Requests = Parse.Object.extend("Requests");
+    var requestQuery = new Parse.Query(Requests);
+    requestQuery.get(rID).then(
+      function(request) {
+        console.log("Request received:"+request);
+        var rejected = request.get('rejected');
+        if (rejected == null)
+        {
+          rejected = [];
+        }
+        rejected.push('haha');
+        request.set('rejected',rejected);
+        request.save();
+      }).then(function(obj){
+        console.log(obj);
+      },
+      function(error) {
+        console.log(error);
+      }
+    );
+    */
 
 
   </script>

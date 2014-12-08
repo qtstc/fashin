@@ -1,17 +1,106 @@
-var fs = require('fs');
-var layer = require('cloud/layer-parse-module/layer-module.js');
-var layerProviderID = 'f147fdb2-19c1-11e4-a0e9-a19800003b1a';
-var layerKeyID = 'bac90d30-7bcd-11e4-a52a-75bc00007755';
-var privateKey = fs.readFileSync('cloud/layer-parse-module/keys/layer-key.js');
-layer.initialize(layerProviderID, layerKeyID, privateKey);
-
 // Use Parse.Cloud.define to define as many cloud functions as you want.
 // For example:
 Parse.Cloud.define("hello", function(request, response) {
   	response.success("This is twillio from tao!");
 });
 
+Parse.Cloud.define("pingStylist", function(request, response){
+  var rID = request.params.requestID;
+  console.log("The request ID is "+rID);
+
+  var Requests = Parse.Object.extend("Requests");
+  var requestQuery = new Parse.Query(Requests);
+  // Frist get the request by ID
+  requestQuery.get(rID, {
+    success: function(request) {
+      //Get all the stylists which rejected
+      var rejected = request.get('rejected');
+      //If there weren't any, use empty array
+      if (rejected == null)
+      {
+        rejected = [];
+      }
+      var userQuery = new Parse.Query(Parse.User);
+      userQuery.equalTo('typeOfUser','stylist');
+      userQuery.notContainedIn('objectId',rejected);
+      //We only need one
+      userQuery.limit(1);
+      //Get the stylist which is last active
+      userQuery.descending('updatedAt');
+      userQuery.find({
+        success: function(results) {
+          // If there is no result
+          if(results.length == 0)
+          {
+            request.set('status','nomatch');
+            request.save(null, {
+              success: function(request) {
+
+                console.log("No match for request: "+rID);
+                // Now we notifiy the user through push
+                var pushQuery = new Parse.Query(Parse.Installation);
+                pushQuery.equalTo('userObject', request.get('customerObject'));
+                Parse.Push.send({
+                  where: pushQuery,
+                  data: {
+                    alert: "We're sorry, no stylists are available right now. Check back again soon!",
+                    requestId:rID
+                  }
+                }, {
+                  success: function() {
+                    response.success("Push sent successfully to customer for nomatch "+request.get('customerObject').id);
+                  },
+                  error: function(error) {
+                    response.fail("Failed to send push to customer for nomatch "+request.get('customerObject').id);
+                  }
+                });
+              },
+              error: function(gameScore, error) {
+                response.fail("Error while updating the nomatch for request:"+rID+":"+error);
+              }
+            });
+          }else
+          {
+            request.set('stylistObject',results[0]);
+            request.set('status','matching');
+            request.save(null, {
+              success: function(request) {
+                console.log("Matching for request: "+rID);
+                // Now we push to stylist
+                var pushQuery = new Parse.Query(Parse.Installation);
+                pushQuery.equalTo('userObject', results[0]);
+                // Send push notification to query
+                Parse.Push.send({
+                  where: pushQuery,
+                  data: {
+                    alert: "You have a new fashion advice request.",
+                    requestId:rID
+                  }
+                }, {
+                  success: function() {
+                    response.success("Push sent successfully to stylist "+results[0].id);
+                  },
+                  error: function(error) {
+                    response.fail("Failed to send push to stylist "+results[0].id);
+                  }
+                });
+              },
+              error: function(gameScore, error) {
+                response.fail("Error when matching for request:"+rID+":"+error);
+              }
+            });
+          }
+        }
+      });
+    },
+    error: function(object, error) {
+      response.fail("Failed to get request:"+rID+":"+error);
+    }
+  });
+});
+
 Parse.Cloud.afterSave("Requests", function(request) {
+  /*
 	var rId = request.object.id;
 
 	// Find users near a given location
@@ -54,12 +143,20 @@ Parse.Cloud.afterSave("Requests", function(request) {
 	    // Handle error
 	  }
 	});
+*/
 });
 
 Parse.Cloud.define("generateToken", function(request, response) {
-    var userID = request.params.userID;
-    var nonce = request.params.nonce
-    if (!userID) throw new Error('Missing userID parameter');
-    if (!nonce) throw new Error('Missing nonce parameter');
-        response.success(layer.layerIdentityToken(userID, nonce));
+  var fs = require('fs');
+  var layer = require('cloud/layer-parse-module/layer-module.js');
+  var layerProviderID = 'f147fdb2-19c1-11e4-a0e9-a19800003b1a';
+  var layerKeyID = 'bac90d30-7bcd-11e4-a52a-75bc00007755';
+  var privateKey = fs.readFileSync('cloud/layer-parse-module/keys/layer-key.js');
+  layer.initialize(layerProviderID, layerKeyID, privateKey);
+
+  var userID = request.params.userID;
+  var nonce = request.params.nonce
+  if (!userID) throw new Error('Missing userID parameter');
+  if (!nonce) throw new Error('Missing nonce parameter');
+      response.success(layer.layerIdentityToken(userID, nonce));
 });
