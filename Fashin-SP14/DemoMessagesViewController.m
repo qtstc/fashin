@@ -35,13 +35,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-	self.title = @"Session with Courtney";
 	
     /**
      *  You MUST set your senderId and display name
      */
-    self.senderId = kJSQDemoAvatarIdRajat;
+    self.senderId = kJSQDemoAvatarIdSelf;
     self.senderDisplayName = kJSQDemoAvatarDisplayNameRajat;
 
     
@@ -71,10 +69,10 @@
 }
 
 -(void)forceRefresh{
-	NSLog(@"forceRefresh");
+	//NSLog(@"forceRefresh");
 	
 	PFQuery *query = [PFQuery queryWithClassName:@"FMsg"];
-	[query whereKey:@"conversation" equalTo:@"c01"];
+	[query whereKey:@"convoObj" equalTo:self.convoObj];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 		if (!error)
 		{
@@ -84,13 +82,37 @@
 				//			  NSLog(@"%@", object[@"message"]);
 		  
 				NSString *msgText = object[@"message"];
-				JSQTextMessage *msg = [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdRajat
-															 senderDisplayName:kJSQDemoAvatarDisplayNameRajat
-																		  date:[NSDate date]
+				PFObject *senderObj = object[@"senderObj"];
+				NSString *senderObjectId = senderObj.objectId;
+				NSString *senderLocalId, *recepientLocalId;
+				
+				if([senderObjectId isEqualToString:[[PFUser currentUser] objectId]])
+				{
+					senderLocalId = kJSQDemoAvatarIdSelf;
+					recepientLocalId = kJSQDemoAvatarIdOther;
+				}
+				else
+				{
+					senderLocalId = kJSQDemoAvatarIdOther;
+					recepientLocalId = kJSQDemoAvatarIdSelf;
+				}
+				
+				JSQTextMessage *msg = [[JSQTextMessage alloc] initWithSenderId:senderLocalId
+															 senderDisplayName:recepientLocalId
+																		  date:object.createdAt
 																		  text:msgText];
 				[fetchedMessagesModel addObject:msg];
 				self.demoData.messages = fetchedMessagesModel;
+//				[self.collectionView reloadData];
+//				[self scrollToBottomAnimated:YES];
+				
+				[self.collectionView.collectionViewLayout invalidateLayoutWithContext:	[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
 				[self.collectionView reloadData];
+    
+				if (self.automaticallyScrollsToMostRecentMessage) {
+					[self scrollToBottomAnimated:YES];
+				}
+				
 			}
 		}
 		else {
@@ -120,163 +142,30 @@
      *  Note: this feature is mostly stable, but still experimental
      */
     self.collectionView.collectionViewLayout.springinessEnabled = [NSUserDefaults springinessSetting];
+	
+	
+	NSString *typeOfUser = [PFUser currentUser][@"typeOfUser"];
+	NSString *otherPerson;
+	if([typeOfUser isEqualToString:@"customer"]){
+		otherPerson = self.stylistObj[@"firstName"];
+		self.otherUserObj = self.stylistObj;
+	}
+	else{
+		otherPerson = self.custObj[@"firstName"];
+		self.otherUserObj = self.custObj;
+	}
+	
+	if(otherPerson.length)
+		self.title = otherPerson;
+	else
+		self.title = @"Fashin Session";
+	
+	[self forceRefresh];
 }
 
 
 
 #pragma mark - Actions
-
-- (void)receiveMessagePressed:(UIBarButtonItem *)sender
-{
-	return;
-    /**
-     *  DEMO ONLY
-     *
-     *  The following is simply to simulate received messages for the demo.
-     *  Do not actually do this.
-     */
-    
-    
-    /**
-     *  Show the typing indicator to be shown
-     */
-    self.showTypingIndicator = !self.showTypingIndicator;
-    
-    /**
-     *  Scroll to actually view the indicator
-     */
-    [self scrollToBottomAnimated:YES];
-    
-    /**
-     *  Copy last sent message, this will be the new "received" message
-     */
-    JSQMessage *copyMessage = [[self.demoData.messages lastObject] copy];
-    
-    if (!copyMessage) {
-        copyMessage = [JSQTextMessage messageWithSenderId:kJSQDemoAvatarIdCourtney
-                                              displayName:kJSQDemoAvatarDisplayNameCourtney
-                                                     text:@"First received!"];
-    }
-    
-    /**
-     *  Allow typing indicator to show
-     */
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        NSMutableArray *userIds = [[self.demoData.users allKeys] mutableCopy];
-        [userIds removeObject:self.senderId];
-        NSString *randomUserId = userIds[arc4random_uniform((int)[userIds count])];
-        
-        JSQMessage *newMessage = nil;
-        id<JSQMessageMediaData> newMediaData = nil;
-        id newMediaAttachmentCopy = nil;
-        
-        if ([copyMessage isKindOfClass:[JSQMediaMessage class]]) {
-            /**
-             *  Last message was a media message
-             */
-            id<JSQMessageMediaData> copyMediaData = copyMessage.media;
-            
-            if ([copyMediaData isKindOfClass:[JSQPhotoMediaItem class]]) {
-                JSQPhotoMediaItem *photoItemCopy = [((JSQPhotoMediaItem *)copyMediaData) copy];
-                newMediaAttachmentCopy = [UIImage imageWithCGImage:photoItemCopy.image.CGImage];
-                
-                /**
-                 *  Set image to nil to simulate "downloading" the image
-                 *  and show the placeholder view
-                 */
-                photoItemCopy.image = nil;
-                
-                newMediaData = photoItemCopy;
-            }
-            else if ([copyMediaData isKindOfClass:[JSQLocationMediaItem class]]) {
-                JSQLocationMediaItem *locationItemCopy = [((JSQLocationMediaItem *)copyMediaData) copy];
-                newMediaAttachmentCopy = [locationItemCopy.location copy];
-                
-                /**
-                 *  Set location to nil to simulate "downloading" the location data
-                 */
-                locationItemCopy.location = nil;
-                
-                newMediaData = locationItemCopy;
-            }
-            else if ([copyMediaData isKindOfClass:[JSQVideoMediaitem class]]) {
-                JSQVideoMediaitem *videoItemCopy = [((JSQVideoMediaitem *)copyMediaData) copy];
-                newMediaAttachmentCopy = [videoItemCopy.fileURL copy];
-                
-                /**
-                 *  Reset video item to simulate "downloading" the video
-                 */
-                videoItemCopy.fileURL = nil;
-                videoItemCopy.isReadyToPlay = NO;
-                
-                newMediaData = videoItemCopy;
-            }
-            else {
-                NSLog(@"%s error: unrecognized media item", __PRETTY_FUNCTION__);
-            }
-            
-            newMessage = [JSQMediaMessage messageWithSenderId:randomUserId
-                                                  displayName:self.demoData.users[randomUserId]
-                                                        media:newMediaData];
-        }
-        else {
-            /**
-             *  Last message was a text message
-             */
-            newMessage = [JSQTextMessage messageWithSenderId:randomUserId
-                                                 displayName:self.demoData.users[randomUserId]
-                                                        text:copyMessage.text];
-        }
-        
-        /**
-         *  Upon receiving a message, you should:
-         *
-         *  1. Play sound (optional)
-         *  2. Add new id<JSQMessageData> object to your data source
-         *  3. Call `finishReceivingMessage`
-         */
-        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
-        [self.demoData.messages addObject:newMessage];
-        [self finishReceivingMessage];
-        
-        
-        if ([newMessage isKindOfClass:[JSQMediaMessage class]]) {
-            /**
-             *  Simulate "downloading" media
-             */
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                /**
-                 *  Media is "finished downloading", re-display visible cells
-                 *
-                 *  If media cell is not visible, the next time it is dequeued the view controller will display its new attachment data
-                 *
-                 *  Reload the specific item, or simply call `reloadData`
-                 */
-                
-                if ([newMediaData isKindOfClass:[JSQPhotoMediaItem class]]) {
-                    ((JSQPhotoMediaItem *)newMediaData).image = newMediaAttachmentCopy;
-                    [self.collectionView reloadData];
-                }
-                else if ([newMediaData isKindOfClass:[JSQLocationMediaItem class]]) {
-                    [((JSQLocationMediaItem *)newMediaData)setLocation:newMediaAttachmentCopy withCompletionHandler:^{
-                        [self.collectionView reloadData];
-                    }];
-                }
-                else if ([newMediaData isKindOfClass:[JSQVideoMediaitem class]]) {
-                    ((JSQVideoMediaitem *)newMediaData).fileURL = newMediaAttachmentCopy;
-                    ((JSQVideoMediaitem *)newMediaData).isReadyToPlay = YES;
-                    [self.collectionView reloadData];
-                }
-                else {
-                    NSLog(@"%s error: unrecognized media item", __PRETTY_FUNCTION__);
-                }
-                
-            });
-        }
-        
-    });
-}
 
 - (void)closePressed:(UIBarButtonItem *)sender
 {
@@ -303,7 +192,7 @@
      */
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
-    JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:senderId
+    JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdSelf
                                                      senderDisplayName:senderDisplayName
                                                                   date:date
                                                                   text:text];
@@ -319,12 +208,13 @@
 	if(!text)
 		return;
 	
-	PFObject *gameScore = [PFObject objectWithClassName:@"FMsg"];
-	gameScore[@"message"] = text;
-	gameScore[@"sender"] = @"customer";
-	gameScore[@"recepient"] = @"stylist";
-	gameScore[@"conversation"] = @"c01";
-	[gameScore saveInBackground];
+	PFObject *msgObj = [PFObject objectWithClassName:@"FMsg"];
+	msgObj[@"message"] = text;
+	msgObj[@"senderObj"] = [PFUser currentUser];
+	msgObj[@"recepientObj"] = self.otherUserObj;
+	msgObj[@"convoObj"] = self.convoObj;
+	
+	[msgObj saveInBackground];
 }
 
 
@@ -449,12 +339,14 @@
         JSQMessage *message = [self.demoData.messages objectAtIndex:indexPath.item];
         return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
     }
-    
+	
     return nil;
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
 {
+	return nil;
+	
     JSQMessage *message = [self.demoData.messages objectAtIndex:indexPath.item];
     
     /**

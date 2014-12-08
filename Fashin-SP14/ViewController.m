@@ -26,6 +26,13 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+	[super viewDidAppear:animated];
+	
+	if ([PFUser currentUser])
+		[self checkForSessionStatus];
+}
+
 - (void)viewWillLayoutSubviews
 {
 	[super viewWillLayoutSubviews];
@@ -66,6 +73,66 @@
 	}
 }
 
+-(void)checkForSessionStatus
+{
+	NSString *typeOfUser = [PFUser currentUser][@"typeOfUser"];
+	
+	self.stylistConsoleLabel.hidden = ![typeOfUser isEqualToString:@"stylist"];
+	
+	NSString *firstName = [PFUser currentUser][@"firstName"];
+	if(firstName.length)
+	{
+		self.welcomeLabel.hidden = NO;
+		self.welcomeLabel.text = [NSString stringWithFormat:@"Hello, %@!", firstName];
+	}
+	else
+		self.welcomeLabel.hidden = YES;
+
+	
+	[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+	
+	PFQuery *query = [PFQuery queryWithClassName:@"Requests"];
+	
+	if([typeOfUser isEqualToString:@"customer"])
+		[query whereKey:@"customerObject" equalTo:[PFUser currentUser]];
+	else
+		[query whereKey:@"stylistObject" equalTo:[PFUser currentUser]];
+	
+	[query whereKey:@"status" notEqualTo:@"nomatch"];
+	[query addDescendingOrder:@"createdAt"];
+	[query includeKey:@"stylistObject"];
+	[query includeKey:@"customerObject"];
+	
+	__weak typeof(self) weakSelf = self;
+	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+	{
+		[SVProgressHUD dismiss];
+		
+		if (!error)
+		{
+			PFObject *sessionObj = [objects firstObject];
+			//NSLog(@"%@", sessionObj);
+			
+			NSString *status = sessionObj[@"status"];
+			if([status isEqualToString:@"chatting"])
+			{
+				NSLog(@"active session found. launching chat");
+				
+				DemoMessagesViewController *vc = [DemoMessagesViewController messagesViewController];
+				vc.delegateModal = self;
+				UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+				[weakSelf presentViewController:nc animated:YES completion:nil];
+				vc.stylistObj = sessionObj[@"stylistObject"];;
+				vc.convoObj = sessionObj;
+				vc.custObj = sessionObj[@"customerObject"];
+			}
+		}
+		else {
+			NSLog(@"checkForSessionStatus Error: %@ %@", error, [error userInfo]);
+		}
+	}];
+}
+
 - (IBAction)testMessagingUITapped:(id)sender
 {
 	[PFAnalytics trackEvent:@"Session Opened"];
@@ -84,7 +151,7 @@
 }
 
 
-- (IBAction)createSessionTapped:(id)sender {
+- (IBAction)createSessionTapped2:(id)sender {
 	
 	if(![PFUser currentUser])
 		return;
@@ -108,7 +175,7 @@
 	
 }
 
-- (IBAction)createSessionTapped_ping:(id)sender {
+- (IBAction)createSessionTapped:(id)sender {
 	
 	if(![PFUser currentUser])
 		return;

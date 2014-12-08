@@ -23,6 +23,7 @@
 #import "DemoModelData.h"
 #import "NSUserDefaults+DemoSettings.h"
 
+#import <Parse/Parse.h>
 
 @class DemoMessagesViewController;
 
@@ -36,6 +37,13 @@
 
 
 @interface DemoMessagesViewController : JSQMessagesViewController <UIActionSheetDelegate>
+
+@property (strong, nonatomic) PFObject* stylistObj;
+@property (strong, nonatomic) PFObject* custObj;
+@property (strong, nonatomic) PFObject* otherUserObj;
+@property (strong, nonatomic) PFObject* convoObj;
+
+
 
 @property (weak, nonatomic) id<JSQDemoViewControllerDelegate> delegateModal;
 

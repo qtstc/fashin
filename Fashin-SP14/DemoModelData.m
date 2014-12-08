@@ -35,16 +35,17 @@
     if (self) {
 		
 		// Load our default settings
-		[NSUserDefaults saveIncomingAvatarSetting:YES];
-		[NSUserDefaults saveOutgoingAvatarSetting:YES];
+		[NSUserDefaults saveIncomingAvatarSetting:NO];
+		[NSUserDefaults saveOutgoingAvatarSetting:NO];
 
+		/*
         if ([NSUserDefaults emptyMessagesSetting]) {
             self.messages = [NSMutableArray new];
         }
         else {
             [self loadFakeMessages];
         }
-        
+        */
         
         /**
          *  Create avatar images once.
@@ -66,13 +67,13 @@
         JSQMessagesAvatarImage *courtneyImage = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"mockFaces-female1.jpg"]
                                                                                        diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
         
-        self.avatars = @{ kJSQDemoAvatarIdRajat : rajatImage,
-                          kJSQDemoAvatarIdCourtney : courtneyImage
+        self.avatars = @{ kJSQDemoAvatarIdSelf : rajatImage,
+                          kJSQDemoAvatarIdOther : courtneyImage
 						  };
         
         
-        self.users = @{ kJSQDemoAvatarIdRajat : kJSQDemoAvatarDisplayNameRajat,
-                        kJSQDemoAvatarIdCourtney : kJSQDemoAvatarDisplayNameCourtney
+        self.users = @{ kJSQDemoAvatarIdSelf : kJSQDemoAvatarDisplayNameRajat,
+                        kJSQDemoAvatarIdOther : kJSQDemoAvatarDisplayNameCourtney
                       };
         
 		 
@@ -99,37 +100,37 @@
      *  You should have a mutable array or orderedSet, or something.
      */
     self.messages = [[NSMutableArray alloc] initWithObjects:
-                     [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdCourtney
+                     [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdOther
                                             senderDisplayName:kJSQDemoAvatarDisplayNameCourtney
                                                          date:[NSDate date]
                                                          text:@"Hi Rajat, my name is Courtney and I will be helping you with your Fashin questions. How are you doing?"],
                      
-                     [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdRajat
+                     [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdSelf
                                             senderDisplayName:kJSQDemoAvatarDisplayNameRajat
                                                          date:[NSDate date]
                                                          text:@"Hi Courtney, I'm good. How are you?"],
 					 
-					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdCourtney
+					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdOther
 											senderDisplayName:kJSQDemoAvatarDisplayNameCourtney
 														 date:[NSDate date]
 														 text:@"I'm doing well. Thank you for asking. So how can I help you today?"],
 					 
-					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdRajat
+					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdSelf
 											senderDisplayName:kJSQDemoAvatarDisplayNameRajat
 														 date:[NSDate date]
 														 text:@"I have an interview coming up in San Francisco. I was told that the dress code is business casual. Should I go with a blazer or just dress shirt and tie?"],
 					 
-					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdCourtney
+					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdOther
 											senderDisplayName:kJSQDemoAvatarDisplayNameCourtney
 														 date:[NSDate date]
 														 text:@"I would need a little more info about what you currently have in your wardrobe and what styles you are comfortable with."],
 					 
-					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdCourtney
+					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdOther
 											senderDisplayName:kJSQDemoAvatarDisplayNameCourtney
 														 date:[NSDate date]
 														 text:@"It would definitely be possible to create a casual look even with a blazer. In fact I recommend going with a blazer as it provides a sharp and confident look."],
 					 
-					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdRajat
+					 [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdSelf
 											senderDisplayName:kJSQDemoAvatarDisplayNameRajat
 														 date:[NSDate date]
 														 text:@"Yeah, that's what I was thinking too. I don't currently have any good blazers and am thinking of buying one this afternoon. I had something like this pic in mind."],
@@ -154,7 +155,7 @@
      *  You should see "END" twice
      */
     if ([NSUserDefaults longMessageSetting]) {
-        JSQTextMessage *reallyLongMessage = [JSQTextMessage messageWithSenderId:kJSQDemoAvatarIdRajat
+        JSQTextMessage *reallyLongMessage = [JSQTextMessage messageWithSenderId:kJSQDemoAvatarIdSelf
                                                                     displayName:kJSQDemoAvatarDisplayNameRajat
                                                                            text:@"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? END Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? END"];
         
@@ -165,7 +166,7 @@
 - (void)addPhotoMediaMessage
 {
     JSQPhotoMediaItem *photoItem = [[JSQPhotoMediaItem alloc] initWithImage:[UIImage imageNamed:@"md-blazer.jpg"]];
-    JSQMediaMessage *photoMessage = [JSQMediaMessage messageWithSenderId:kJSQDemoAvatarIdRajat
+    JSQMediaMessage *photoMessage = [JSQMediaMessage messageWithSenderId:kJSQDemoAvatarIdSelf
                                                              displayName:kJSQDemoAvatarDisplayNameRajat
                                                                    media:photoItem];
     [self.messages addObject:photoMessage];
@@ -178,7 +179,7 @@
     JSQLocationMediaItem *locationItem = [[JSQLocationMediaItem alloc] init];
     [locationItem setLocation:ferryBuildingInSF withCompletionHandler:completion];
     
-    JSQMediaMessage *locationMessage = [JSQMediaMessage messageWithSenderId:kJSQDemoAvatarIdRajat
+    JSQMediaMessage *locationMessage = [JSQMediaMessage messageWithSenderId:kJSQDemoAvatarIdSelf
                                                                 displayName:kJSQDemoAvatarDisplayNameRajat
                                                                       media:locationItem];
     [self.messages addObject:locationMessage];
@@ -190,7 +191,7 @@
     NSURL *videoURL = [NSURL URLWithString:@"file://"];
     
     JSQVideoMediaitem *videoItem = [[JSQVideoMediaitem alloc] initWithFileURL:videoURL isReadyToPlay:YES];
-    JSQMediaMessage *videoMessage = [JSQMediaMessage messageWithSenderId:kJSQDemoAvatarIdRajat
+    JSQMediaMessage *videoMessage = [JSQMediaMessage messageWithSenderId:kJSQDemoAvatarIdSelf
                                                              displayName:kJSQDemoAvatarDisplayNameRajat
                                                                    media:videoItem];
     [self.messages addObject:videoMessage];

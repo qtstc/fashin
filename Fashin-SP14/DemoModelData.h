@@ -31,8 +31,8 @@
 static NSString * const kJSQDemoAvatarDisplayNameRajat = @"";
 static NSString * const kJSQDemoAvatarDisplayNameCourtney = @"";
 
-static NSString * const kJSQDemoAvatarIdRajat = @"053496-4509-289";
-static NSString * const kJSQDemoAvatarIdCourtney = @"468-768355-23123";
+static NSString * const kJSQDemoAvatarIdSelf = @"053496-4509-289";
+static NSString * const kJSQDemoAvatarIdOther = @"468-768355-23123";
 
 
 
