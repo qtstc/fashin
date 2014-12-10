@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	
+	[self setNeedsStatusBarAppearanceUpdate];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -48,7 +48,11 @@
 			NSLog(@"User logged in through Facebook!");
 			[self dismissLoginVC];
 		}
-	}];
-	
+	}];	
 }
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+	return UIStatusBarStyleLightContent;
+}
+
 @end

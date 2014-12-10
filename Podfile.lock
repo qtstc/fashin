@@ -9,8 +9,9 @@ PODS:
   - ParseFacebookUtils (1.4.2):
     - Facebook-iOS-SDK (~> 3.19.0)
     - Parse (~> 1.4.2)
+  - PayPal-iOS-SDK (2.8.0)
   - SDWebImage (3.7.1):
-    - SDWebImage/Core
+    - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
   - SVProgressHUD (1.0)
   - TTTAttributedLabel (1.10.1)
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - MHPrettyDate
   - Parse
   - ParseFacebookUtils
+  - PayPal-iOS-SDK
   - SDWebImage
   - SVProgressHUD
   - TTTAttributedLabel
@@ -32,8 +34,9 @@ SPEC CHECKSUMS:
   MHPrettyDate: d9f42f2ec3dfece6352f18ac77aa33312174e09e
   Parse: fc9ceb6edbc6bb6a1a1f3c33f0db3293a6894f94
   ParseFacebookUtils: 15b04623e6bf4bbea5d60460caff98943ad7351e
+  PayPal-iOS-SDK: d3c76146a649a3f59f13ed98c0c8a55da9d90ca6
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
 
-COCOAPODS: 0.34.2
+COCOAPODS: 0.35.0

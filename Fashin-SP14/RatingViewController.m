@@ -38,11 +38,11 @@
 
 - (void)populateWithMockData
 {
-	int minutes = arc4random() % 5 + 2;
+	int minutes = arc4random() % 2 + 1;
 	self.sessionCost = minutes * 4;
 	self.minutesLabel.text = [NSString stringWithFormat:@"%i minutes session",minutes];
 	self.amountLabel.text = [NSString stringWithFormat:@"$%i",self.sessionCost];
-	self.personNameLabel.text = @"Courtney";
+	self.personNameLabel.text = @"Ashley";
 	
 	self.personPhotoImageView.image = [UIImage imageNamed:@"mockFaces-female1.jpg"];
 	self.personPhotoImageView.layer.borderWidth = 1.0;
@@ -110,7 +110,7 @@
 		
 		PFObject *feedbackObj = [PFObject objectWithClassName:@"Requests"];
 		feedbackObj[@"customer"] = @"Rajat";
-		feedbackObj[@"stylist"] = @"Courtney";
+		feedbackObj[@"stylist"] = @"Ashley";
 		feedbackObj[@"status"] = @"test_finished";
 		int ratingOn100Scale = self.ratingView.rating*20.0;
 		feedbackObj[@"stylist_rating"] = [NSNumber numberWithInt:ratingOn100Scale];

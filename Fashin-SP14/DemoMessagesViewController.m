@@ -17,7 +17,8 @@
 //
 
 #import "DemoMessagesViewController.h"
-
+#import <Parse/Parse.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 
 @implementation DemoMessagesViewController
 
@@ -35,13 +36,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-	self.title = @"Session with Courtney";
 	
     /**
      *  You MUST set your senderId and display name
      */
-    self.senderId = kJSQDemoAvatarIdRajat;
+    self.senderId = kJSQDemoAvatarIdSelf;
     self.senderDisplayName = kJSQDemoAvatarDisplayNameRajat;
 
     
@@ -62,16 +61,92 @@
         self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"typing"]
-                                                                              style:UIBarButtonItemStyleBordered
-                                                                             target:self
-                                                                             action:@selector(receiveMessagePressed:)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"typing"]
+//                                                                              style:UIBarButtonItemStyleBordered
+//                                                                             target:self
+//                                                                             action:@selector(receiveMessagePressed:)];
+//	
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Call" style:UIBarButtonItemStyleBordered target:self action:@selector(callButtonTapped)];
+}
+
+-(void)callButtonTapped{
+	NSString *faceTimeUrlScheme = [@"facetime-audio://" stringByAppendingString:@"7657190035"];
+	NSURL    *facetimeURL       = [NSURL URLWithString:faceTimeUrlScheme];
+	
+	// Facetime is available or not
+	if ([[UIApplication sharedApplication] canOpenURL:facetimeURL])
+	{
+		[[UIApplication sharedApplication] openURL:facetimeURL];
+	}
+	else
+	{
+		NSLog(@"cannot facetime");
+		// Facetime not available
+	}
+}
+
+-(void)forceRefresh{
+	//NSLog(@"forceRefresh");
+	
+	PFQuery *query = [PFQuery queryWithClassName:@"FMsg"];
+	[query whereKey:@"convoObj" equalTo:self.convoObj];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+		if (!error)
+		{
+			//NSLog(@"Successfully retrieved %lu messages.", objects.count);
+			
+			//No new messages since last refresh
+			if(objects.count == self.demoData.messages.count)
+				return;
+			
+			NSMutableArray *fetchedMessagesModel = [NSMutableArray array];
+			for (PFObject *object in objects) {
+				//			  NSLog(@"%@", object[@"message"]);
+		  
+				NSString *msgText = object[@"message"];
+				PFObject *senderObj = object[@"senderObj"];
+				NSString *senderObjectId = senderObj.objectId;
+				NSString *senderLocalId, *recepientLocalId;
+				
+				if([senderObjectId isEqualToString:[[PFUser currentUser] objectId]])
+				{
+					senderLocalId = kJSQDemoAvatarIdSelf;
+					recepientLocalId = kJSQDemoAvatarIdOther;
+				}
+				else
+				{
+					senderLocalId = kJSQDemoAvatarIdOther;
+					recepientLocalId = kJSQDemoAvatarIdSelf;
+				}
+				
+				JSQTextMessage *msg = [[JSQTextMessage alloc] initWithSenderId:senderLocalId
+															 senderDisplayName:recepientLocalId
+																		  date:object.createdAt
+																		  text:msgText];
+				[fetchedMessagesModel addObject:msg];
+				self.demoData.messages = fetchedMessagesModel;
+//				[self.collectionView reloadData];
+//				[self scrollToBottomAnimated:YES];
+				
+				[self.collectionView.collectionViewLayout invalidateLayoutWithContext:	[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
+				[self.collectionView reloadData];
+    
+				if (self.automaticallyScrollsToMostRecentMessage) {
+					[self scrollToBottomAnimated:YES];
+				}
+				
+			}
+		}
+		else {
+			NSLog(@"Error: %@ %@", error, [error userInfo]);
+		}
+	}];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+	
     if (self.delegateModal) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop
                                                                                               target:self
@@ -79,6 +154,7 @@
     }
 }
 
+NSTimer *t1;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -89,167 +165,53 @@
      *  Note: this feature is mostly stable, but still experimental
      */
     self.collectionView.collectionViewLayout.springinessEnabled = [NSUserDefaults springinessSetting];
+	
+	
+	NSString *typeOfUser = [PFUser currentUser][@"typeOfUser"];
+	NSString *otherPerson;
+	if([typeOfUser isEqualToString:@"customer"]){
+		otherPerson = self.stylistObj[@"firstName"];
+		self.otherUserObj = self.stylistObj;
+	}
+	else{
+		otherPerson = self.custObj[@"firstName"];
+		self.otherUserObj = self.custObj;
+	}
+	
+	if(otherPerson.length)
+		self.title = otherPerson;
+	else
+		self.title = @"Fashin Session";
+	
+	[self forceRefresh];
+	
+	t1 = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(forceRefresh) userInfo:nil repeats:YES];
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+	[super viewWillDisappear:animated];
+//	NSLog(@"view will disappear");
+	[t1 invalidate];
+}
+
 
 
 
 #pragma mark - Actions
 
-- (void)receiveMessagePressed:(UIBarButtonItem *)sender
-{
-	return;
-    /**
-     *  DEMO ONLY
-     *
-     *  The following is simply to simulate received messages for the demo.
-     *  Do not actually do this.
-     */
-    
-    
-    /**
-     *  Show the typing indicator to be shown
-     */
-    self.showTypingIndicator = !self.showTypingIndicator;
-    
-    /**
-     *  Scroll to actually view the indicator
-     */
-    [self scrollToBottomAnimated:YES];
-    
-    /**
-     *  Copy last sent message, this will be the new "received" message
-     */
-    JSQMessage *copyMessage = [[self.demoData.messages lastObject] copy];
-    
-    if (!copyMessage) {
-        copyMessage = [JSQTextMessage messageWithSenderId:kJSQDemoAvatarIdCourtney
-                                              displayName:kJSQDemoAvatarDisplayNameCourtney
-                                                     text:@"First received!"];
-    }
-    
-    /**
-     *  Allow typing indicator to show
-     */
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        NSMutableArray *userIds = [[self.demoData.users allKeys] mutableCopy];
-        [userIds removeObject:self.senderId];
-        NSString *randomUserId = userIds[arc4random_uniform((int)[userIds count])];
-        
-        JSQMessage *newMessage = nil;
-        id<JSQMessageMediaData> newMediaData = nil;
-        id newMediaAttachmentCopy = nil;
-        
-        if ([copyMessage isKindOfClass:[JSQMediaMessage class]]) {
-            /**
-             *  Last message was a media message
-             */
-            id<JSQMessageMediaData> copyMediaData = copyMessage.media;
-            
-            if ([copyMediaData isKindOfClass:[JSQPhotoMediaItem class]]) {
-                JSQPhotoMediaItem *photoItemCopy = [((JSQPhotoMediaItem *)copyMediaData) copy];
-                newMediaAttachmentCopy = [UIImage imageWithCGImage:photoItemCopy.image.CGImage];
-                
-                /**
-                 *  Set image to nil to simulate "downloading" the image
-                 *  and show the placeholder view
-                 */
-                photoItemCopy.image = nil;
-                
-                newMediaData = photoItemCopy;
-            }
-            else if ([copyMediaData isKindOfClass:[JSQLocationMediaItem class]]) {
-                JSQLocationMediaItem *locationItemCopy = [((JSQLocationMediaItem *)copyMediaData) copy];
-                newMediaAttachmentCopy = [locationItemCopy.location copy];
-                
-                /**
-                 *  Set location to nil to simulate "downloading" the location data
-                 */
-                locationItemCopy.location = nil;
-                
-                newMediaData = locationItemCopy;
-            }
-            else if ([copyMediaData isKindOfClass:[JSQVideoMediaitem class]]) {
-                JSQVideoMediaitem *videoItemCopy = [((JSQVideoMediaitem *)copyMediaData) copy];
-                newMediaAttachmentCopy = [videoItemCopy.fileURL copy];
-                
-                /**
-                 *  Reset video item to simulate "downloading" the video
-                 */
-                videoItemCopy.fileURL = nil;
-                videoItemCopy.isReadyToPlay = NO;
-                
-                newMediaData = videoItemCopy;
-            }
-            else {
-                NSLog(@"%s error: unrecognized media item", __PRETTY_FUNCTION__);
-            }
-            
-            newMessage = [JSQMediaMessage messageWithSenderId:randomUserId
-                                                  displayName:self.demoData.users[randomUserId]
-                                                        media:newMediaData];
-        }
-        else {
-            /**
-             *  Last message was a text message
-             */
-            newMessage = [JSQTextMessage messageWithSenderId:randomUserId
-                                                 displayName:self.demoData.users[randomUserId]
-                                                        text:copyMessage.text];
-        }
-        
-        /**
-         *  Upon receiving a message, you should:
-         *
-         *  1. Play sound (optional)
-         *  2. Add new id<JSQMessageData> object to your data source
-         *  3. Call `finishReceivingMessage`
-         */
-        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
-        [self.demoData.messages addObject:newMessage];
-        [self finishReceivingMessage];
-        
-        
-        if ([newMessage isKindOfClass:[JSQMediaMessage class]]) {
-            /**
-             *  Simulate "downloading" media
-             */
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                /**
-                 *  Media is "finished downloading", re-display visible cells
-                 *
-                 *  If media cell is not visible, the next time it is dequeued the view controller will display its new attachment data
-                 *
-                 *  Reload the specific item, or simply call `reloadData`
-                 */
-                
-                if ([newMediaData isKindOfClass:[JSQPhotoMediaItem class]]) {
-                    ((JSQPhotoMediaItem *)newMediaData).image = newMediaAttachmentCopy;
-                    [self.collectionView reloadData];
-                }
-                else if ([newMediaData isKindOfClass:[JSQLocationMediaItem class]]) {
-                    [((JSQLocationMediaItem *)newMediaData)setLocation:newMediaAttachmentCopy withCompletionHandler:^{
-                        [self.collectionView reloadData];
-                    }];
-                }
-                else if ([newMediaData isKindOfClass:[JSQVideoMediaitem class]]) {
-                    ((JSQVideoMediaitem *)newMediaData).fileURL = newMediaAttachmentCopy;
-                    ((JSQVideoMediaitem *)newMediaData).isReadyToPlay = YES;
-                    [self.collectionView reloadData];
-                }
-                else {
-                    NSLog(@"%s error: unrecognized media item", __PRETTY_FUNCTION__);
-                }
-                
-            });
-        }
-        
-    });
-}
-
 - (void)closePressed:(UIBarButtonItem *)sender
 {
-    [self.delegateModal didDismissJSQDemoViewController:self];
+	[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+	self.convoObj[@"status"] = @"ended";
+	
+	__weak typeof(self) weakSelf = self;
+	[self.convoObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+		[SVProgressHUD dismiss];
+		if(!error)
+		{
+			[weakSelf.delegateModal didDismissJSQDemoViewController:self];
+		}
+	}];
 }
 
 
@@ -272,14 +234,32 @@
      */
     [JSQSystemSoundPlayer jsq_playMessageSentSound];
     
-    JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:senderId
+    JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:kJSQDemoAvatarIdSelf
                                                      senderDisplayName:senderDisplayName
                                                                   date:date
                                                                   text:text];
-    
-    [self.demoData.messages addObject:message];
-    [self finishSendingMessage];
+	
+	[self.demoData.messages addObject:message];
+	NSLog(@"new message: %@ %@ %@", text, senderId, senderDisplayName);
+	[self uploadMessageToServer:text];
+	[self finishSendingMessage];
 }
+
+
+-(void)uploadMessageToServer:(NSString *)text{
+	if(!text)
+		return;
+	
+	PFObject *msgObj = [PFObject objectWithClassName:@"FMsg"];
+	msgObj[@"message"] = text;
+	msgObj[@"senderObj"] = [PFUser currentUser];
+	msgObj[@"recepientObj"] = self.otherUserObj;
+	msgObj[@"convoObj"] = self.convoObj;
+	
+	[msgObj saveInBackground];
+}
+
+
 
 - (void)didPressAccessoryButton:(UIButton *)sender
 {
@@ -401,12 +381,14 @@
         JSQMessage *message = [self.demoData.messages objectAtIndex:indexPath.item];
         return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
     }
-    
+	
     return nil;
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
 {
+	return nil;
+	
     JSQMessage *message = [self.demoData.messages objectAtIndex:indexPath.item];
     
     /**
