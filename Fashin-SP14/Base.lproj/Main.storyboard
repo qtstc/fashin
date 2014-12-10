@@ -157,7 +157,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QKj-im-34e">
-                                <rect key="frame" x="16" y="161" width="65" height="30"/>
+                                <rect key="frame" x="16" y="116" width="65" height="30"/>
                                 <state key="normal" title="Edit Card">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -166,25 +166,25 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Payment info" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hjc-hX-gWt">
-                                <rect key="frame" x="16" y="132" width="101" height="21"/>
+                                <rect key="frame" x="16" y="87" width="101" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="coupon or balance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Isz-YA-l3e">
-                                <rect key="frame" x="16" y="249" width="144" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Coupon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Isz-YA-l3e">
+                                <rect key="frame" x="16" y="201" width="62" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="invite" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMl-2i-g1H">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="invite" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMl-2i-g1H">
                                 <rect key="frame" x="16" y="314" width="41" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2tm-Au-oGN">
-                                <rect key="frame" x="178" y="165" width="126" height="21"/>
+                                <rect key="frame" x="178" y="120" width="126" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="126" id="2iX-mn-odd"/>
                                     <constraint firstAttribute="height" constant="21" id="nMk-QV-gEu"/>
@@ -194,7 +194,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ycx-rw-p9x">
-                                <rect key="frame" x="16" y="194" width="48" height="30"/>
+                                <rect key="frame" x="16" y="149" width="48" height="30"/>
                                 <state key="normal" title="PayPal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -203,7 +203,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gT8-eD-Iqk">
-                                <rect key="frame" x="178" y="198" width="126" height="21"/>
+                                <rect key="frame" x="178" y="153" width="126" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="126" id="hyW-Sq-Rii"/>
                                     <constraint firstAttribute="height" constant="21" id="vnR-T6-DjT"/>
@@ -212,19 +212,45 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="contact us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyj-FV-P3U">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="contact us" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyj-FV-P3U">
                                 <rect key="frame" x="16" y="368" width="81" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wPX-dX-9rM">
+                                <rect key="frame" x="16" y="230" width="288" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="kaO-3W-t9f"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83N-zh-UhG">
+                                <rect key="frame" x="140" y="263" width="40" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="L8d-Ok-iOq"/>
+                                    <constraint firstAttribute="width" constant="40" id="qiy-NI-cl4"/>
+                                </constraints>
+                                <state key="normal" title="Apply">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="applyCoupon:" destination="XFt-wJ-OaR" eventType="touchUpInside" id="7Bu-Rv-MmW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gT8-eD-Iqk" firstAttribute="trailing" secondItem="KMC-SZ-49O" secondAttribute="trailingMargin" id="1Qu-f3-dkc"/>
                             <constraint firstItem="gT8-eD-Iqk" firstAttribute="top" secondItem="2tm-Au-oGN" secondAttribute="bottom" constant="12" id="EHo-nd-lcn"/>
-                            <constraint firstItem="2tm-Au-oGN" firstAttribute="top" secondItem="bKw-Vd-DPM" secondAttribute="bottom" constant="101" id="cNg-ub-Lmv"/>
+                            <constraint firstItem="wPX-dX-9rM" firstAttribute="centerX" secondItem="83N-zh-UhG" secondAttribute="centerX" id="FCM-5S-ciM"/>
+                            <constraint firstItem="2tm-Au-oGN" firstAttribute="top" secondItem="bKw-Vd-DPM" secondAttribute="bottom" constant="56" id="cNg-ub-Lmv"/>
                             <constraint firstItem="2tm-Au-oGN" firstAttribute="trailing" secondItem="KMC-SZ-49O" secondAttribute="trailingMargin" id="j65-h0-oaE"/>
+                            <constraint firstItem="wPX-dX-9rM" firstAttribute="leading" secondItem="KMC-SZ-49O" secondAttribute="leadingMargin" id="jHV-tO-RFY"/>
+                            <constraint firstItem="83N-zh-UhG" firstAttribute="top" secondItem="wPX-dX-9rM" secondAttribute="bottom" constant="3" id="rp1-hR-nGa"/>
+                            <constraint firstItem="wPX-dX-9rM" firstAttribute="top" secondItem="bKw-Vd-DPM" secondAttribute="bottom" constant="166" id="wPH-cX-4oC"/>
+                            <constraint firstItem="wPX-dX-9rM" firstAttribute="trailing" secondItem="KMC-SZ-49O" secondAttribute="trailingMargin" id="wWM-ve-0l3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Settings" id="IiW-Rn-8Or">
@@ -242,6 +268,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="cardInfoLabel" destination="2tm-Au-oGN" id="SLd-74-nQ1"/>
+                        <outlet property="couponTextfield" destination="wPX-dX-9rM" id="wVd-Rw-7m9"/>
                         <outlet property="paypalInfoLabel" destination="gT8-eD-Iqk" id="LTt-fd-2nk"/>
                     </connections>
                 </viewController>
@@ -289,7 +316,7 @@
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rate your stylist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jh8-AJ-JxD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rate your experience" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jh8-AJ-JxD">
                                 <rect key="frame" x="62" y="480" width="197" height="25"/>
                                 <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="16"/>
                                 <nil key="highlightedColor"/>

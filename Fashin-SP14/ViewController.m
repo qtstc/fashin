@@ -88,6 +88,9 @@
 
 -(void)checkForSessionStatus
 {
+	if(![PFUser currentUser])
+		return;
+	
 	NSString *typeOfUser = [PFUser currentUser][@"typeOfUser"];
 	
 	self.stylistConsoleLabel.hidden = ![typeOfUser isEqualToString:@"stylist"];
@@ -171,13 +174,19 @@
 
 - (void)didDismissJSQDemoViewController:(DemoMessagesViewController *)vc
 {
+	__weak typeof(self) wself = self;
 	[self dismissViewControllerAnimated:YES completion:^{
-		UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
-															 bundle:nil];
-		UINavigationController *ratingVC = [storyboard instantiateViewControllerWithIdentifier:@"RatingVCNav"];
-//		[self.navigationController pushViewController:ratingVC animated:YES];
-//		ratingVC.navigationItem.backBarButtonItem
-		[self presentViewController:ratingVC animated:YES completion:nil];
+		NSString *typeOfUser = [PFUser currentUser][@"typeOfUser"];
+		
+		if([typeOfUser isEqualToString:@"customer"])
+		{
+			UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"
+																 bundle:nil];
+			UINavigationController *ratingVC = [storyboard instantiateViewControllerWithIdentifier:@"RatingVCNav"];
+			//		[self.navigationController pushViewController:ratingVC animated:YES];
+			//		ratingVC.navigationItem.backBarButtonItem
+			[wself presentViewController:ratingVC animated:YES completion:nil];
+		}
 	}];
 }
 

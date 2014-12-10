@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *paypalInfoLabel;
 
 @property(nonatomic, strong, readwrite) PayPalConfiguration *payPalConfig;
+@property (weak, nonatomic) IBOutlet UITextField *couponTextfield;
 
 @end
 
@@ -149,5 +150,17 @@
 	// TODO: Send authorization to server
 //	NSLog(@"Here is your authorization:\n\n%@\n\nSend this to your server to complete future payment setup.", authorization);
 }
+
+- (IBAction)applyCoupon:(id)sender {
+	if([self.couponTextfield.text isEqualToString:@"depauw"])
+	{
+		[[[UIAlertView alloc] initWithTitle:@"Coupon Accepted" message:@"Your first session will be free." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil] show];
+	}
+	else
+	{
+		[[[UIAlertView alloc] initWithTitle:@"Invalid Coupon" message:@"That code is invalid or expired." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil] show];
+	}
+}
+
 
 @end
