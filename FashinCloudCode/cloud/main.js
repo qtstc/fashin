@@ -15,6 +15,7 @@ Parse.Cloud.define("respondRequest", function(request,response){
       if(isAccepted)
       {
         request.set('status',"chatting");
+        request.set('startTime',new Date());
         request.save(null, {
           success: function(request) {
 
@@ -26,7 +27,7 @@ Parse.Cloud.define("respondRequest", function(request,response){
               where: pushQuery,
               data: {
                 alert: "Your personal stylist is now online. Launch the app to continue.",
-                requestId:rID
+                requestID:rID
               }
             }, {
               success: function() {
@@ -114,7 +115,7 @@ Parse.Cloud.define("pingStylist", function(request, response){
                   where: pushQuery,
                   data: {
                     alert: "We're sorry, no stylists are available right now. Check back again soon!",
-                    requestId:rID
+                    requestID:rID
                   }
                 }, {
                   success: function() {
@@ -144,13 +145,29 @@ Parse.Cloud.define("pingStylist", function(request, response){
                   where: pushQuery,
                   data: {
                     alert: "You have a new fashion advice request.",
-                    requestId:rID
+                    requestID:rID
                   }
                 }, {
                   success: function() {
                     response.success("Push sent successfully to stylist "+results[0].id);
                   },
                   error: function(error) {
+                    console.log("Try sending SMS after the push failed");
+                    // Require and initialize the Twilio module with your credentials
+                    var client = require('twilio')('ACfe3e967f503baad3edba55c72e89421c', '63fda8f881f773ed7f3f456d9a8f56f9');
+                    // Send an SMS message
+                    client.sendSms({
+                      to:result[0].get('phone'),
+                      from: '+16122947233',
+                      body: 'You have a new fashion advice request.'
+                    }, function(err, responseData) {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        console.log(responseData.from);
+                        console.log(responseData.body);
+                      }
+                    });
                     response.fail("Failed to send push to stylist "+results[0].id);
                   }
                 });
@@ -168,53 +185,6 @@ Parse.Cloud.define("pingStylist", function(request, response){
     }
   });
 });
-
-/*
-Parse.Cloud.afterSave("Requests", function(request) {
-	var rId = request.object.id;
-
-	// Find users near a given location
-	var userQuery = new Parse.Query(Parse.User);
-	userQuery.equalTo('typeOfUser','stylist');
-
-	// Find devices associated with these users
-	var pushQuery = new Parse.Query(Parse.Installation);
-	pushQuery.matchesQuery('userObject', userQuery);
-
-	// Require and initialize the Twilio module with your credentials
-	var client = require('twilio')('ACfe3e967f503baad3edba55c72e89421c', '63fda8f881f773ed7f3f456d9a8f56f9');
-	// Send an SMS message
-	client.sendSms({
-	  to:'+13177014928',
-	  from: '+16122947233',
-	  body: 'You have a new fashion advice request.'
-	}, function(err, responseData) {
-	  if (err) {
-	    console.log(err);
-	  } else {
-	    console.log(responseData.from);
-	    console.log(responseData.body);
-	  }
-	}
-	);
-
-	// Send push notification to query
-	Parse.Push.send({
-	  where: pushQuery,
-	  data: {
-	    alert: "You have a new fashion advice request.",
-	    requestId:rId
-	  }
-	}, {
-	  success: function() {
-	    // Push was successful
-	  },
-	  error: function(error) {
-	    // Handle error
-	  }
-	});
-});
-*/
 
 Parse.Cloud.define("generateToken", function(request, response) {
   var fs = require('fs');

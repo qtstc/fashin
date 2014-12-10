@@ -41,6 +41,21 @@
   <script type="text/javascript">
     Parse.initialize("ZNvDp6y8JgM4zS2XauBXaxe0weM10H9z5bU2Pana", "HkuxPZJ1dwnHxSwii0W7kccbGRN2vZfkjzXeXO67");
 
+    var Requests = Parse.Object.extend("Requests");
+    var requestQuery = new Parse.Query(Requests);
+    requestQuery.get("3uWCsN13T9").then(
+      function(request) {
+        request.set('startTime',new Date());
+        request.save();
+      }).then(function(obj){
+        console.log(obj);
+      },
+      function(error) {
+        console.log(error);
+      }
+    );
+
+    /*
     Parse.Cloud.run('pingStylist', {requestID:'2MBpTIVBAh'}, {
 
       success: function(result) {
@@ -51,30 +66,7 @@
       }
     });
     var rID = "xk0mCFL48z";
-
-    /*
-    var Requests = Parse.Object.extend("Requests");
-    var requestQuery = new Parse.Query(Requests);
-    requestQuery.get(rID).then(
-      function(request) {
-        console.log("Request received:"+request);
-        var rejected = request.get('rejected');
-        if (rejected == null)
-        {
-          rejected = [];
-        }
-        rejected.push('haha');
-        request.set('rejected',rejected);
-        request.save();
-      }).then(function(obj){
-        console.log(obj);
-      },
-      function(error) {
-        console.log(error);
-      }
-    );
     */
-
 
   </script>
 </body>
