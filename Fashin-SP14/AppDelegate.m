@@ -22,8 +22,8 @@
 	// Override point for customization after application launch.
 	
 	//Init Parse
-	[Parse setApplicationId:@"ZNvDp6y8JgM4zS2XauBXaxe0weM10H9z5bU2Pana"
-				  clientKey:@"WTX73pjOLJv7CHajiQpWEKMezTxVyi3a2lr2S0Sn"];
+	[Parse setApplicationId:@"Parse_App_ID"
+				  clientKey:@"Parse_App_Key"];
 	//Init Parse Analytics
 	[PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 	[PFFacebookUtils initializeFacebook];
